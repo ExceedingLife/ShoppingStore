@@ -8,5 +8,6 @@ namespace ShoppingStore.DataAccess
 {
     class User
     {
+
     }
 }
