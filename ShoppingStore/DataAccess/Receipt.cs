@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingStore.DataAccess
 {
-    class Receipt
+    public class Receipt
     {
         //create ReceiptID property
         private int receiptID;
