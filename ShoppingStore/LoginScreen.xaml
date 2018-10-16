@@ -11,11 +11,11 @@
             <ColumnDefinition Width="70px"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="70px"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="100px"/>
         </Grid.RowDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -30,16 +30,13 @@
                 <TextBox Padding="10" Margin="10" Text="Username" FontSize="18"/>
                 <PasswordBox Padding="10" Margin="10" Password="Password" FontSize="18"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Login" Margin="10" Padding="20" FontSize="18" HorizontalAlignment="Left"></Button>
-                    <Button Content="Register" Margin="10" Padding="20" FontSize="18" HorizontalAlignment="Right"></Button>
+                    <Button x:Name="btnLoginUser" Content="Login" Margin="60,10,10,10" Padding="50,20" FontSize="18" Click="btnLoginUser_Click" />
+                    <Button x:Name="btnCreateUser" Content="Register" Margin="60,10,0,10" Padding="50,20" FontSize="18" Click="btnCreateUser_Click"/>
                 </StackPanel>                
                 
             </StackPanel>
         </Border>
-         
+        <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.Row="4" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
 
-        <!--
-        <Label x:Name="lblLoginScreen" Content="" Grid.ColumnSpan="3" Grid.Row="0" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" FontFamily="Ravie"/>
-        -->
     </Grid>
 </Window>

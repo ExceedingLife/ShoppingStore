@@ -23,5 +23,15 @@ namespace ShoppingStore
         {
             InitializeComponent();
         }
+
+        private void btnLoginUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCreateUser_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
