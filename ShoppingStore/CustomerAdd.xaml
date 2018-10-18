@@ -1,0 +1,67 @@
+﻿<Window x:Class="ShoppingStore.CustomerAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create new customer" Height="525" Width="675">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50px"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50px"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="50px"/>
+        </Grid.RowDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Red" Offset="0.503"/>
+                <GradientStop Color="#FF514E4E" Offset="1"/>
+                <GradientStop Color="#FF514E4E" Offset="0.012"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label Content="New Customer" VerticalAlignment="Center" FontSize="30" Grid.ColumnSpan="4" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#FFFEFF00"  />
+            
+        <Border Padding="5" Grid.Column="1"  Grid.Row="1" Grid.RowSpan="4" BorderThickness="5" Grid.ColumnSpan="2" BorderBrush="#FFECD520" CornerRadius="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <!-- UserID Data Area -->
+                <!-- Would like to pull dynamically from DB and show in grid -->
+                <!-- Populate current ID in line from DB and show in txtbox will be good practice -->
+                <!-- Content for row 0 -->
+                <Label x:Name="lblContent0" Content="Customer ID: " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"  HorizontalAlignment="Center" FontSize="18"/>
+                <TextBox x:Name="txtUserID" Grid.Row="0" Grid.Column="1" Width="175px" Height="35px" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="16" VerticalContentAlignment="Center" IsEnabled="False" ToolTip="Customer ID" Focusable="False" />
+                <!-- Content for row 1 -->
+                <Label x:Name="lblContent1" Content="Username: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" />
+                <TextBox x:Name="txtUsername" Grid.Row="1" Grid.Column="1" Width="175px" Height="35px" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="16" ToolTip="Enter New Customer Username" VerticalContentAlignment="Center" />
+                <!-- Content for row 2 -->
+                <Label x:Name="lblContent2" Content="Password: " Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" />
+                <TextBox x:Name="txtPassword" Grid.Row="2" Grid.Column="1" Width="175px" Height="35px" HorizontalAlignment="Left" Margin="30,0,0,0" FontSize="16" ToolTip="Enter New Customer Password" VerticalContentAlignment="Center" />
+                <!-- Content for row 3-->
+                <Label x:Name="lblContent3" Content="Administrator? : " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" />
+                <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                    <RadioButton Content="Yes" GroupName="radioAdmin" Checked="Yes" VerticalAlignment="Center" Margin="30,0" FontSize="16" ToolTip="If 'Yes' is selected must have password." />
+                    <RadioButton Content="No" GroupName="radioAdmin" Checked="No" IsChecked="True" VerticalAlignment="Center" Margin="10,0" FontSize="16" />
+                </StackPanel>
+                <!-- Content for row 4 -->
+                <Button x:Name="btnCreateCustomer" Grid.Row="4" Grid.ColumnSpan="2" Content="Create Customer" Width="120" Height="35" Background="#FFF65124" Click="btnCreateCustomer_Click"/>
+            </Grid>
+        </Border>
+        <Button x:Name="btnAdminScreen" Grid.Row="5" Grid.Column="1" Content="Admin Screen" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to Admin src" Click="btnAdminScreen_Click" />
+        <Button x:Name="btnCustomerList" Grid.Row="5" Grid.Column="2" Content="Customer List" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to CustomerList src" Click="btnCustomerList_Click" />
+    </Grid>
+</Window>
