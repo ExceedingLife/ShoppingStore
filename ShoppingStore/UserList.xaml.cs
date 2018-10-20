@@ -11,6 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
+using ShoppingStore.DataAccess;
+using ShoppingStore.DataBase;
+//--------------------------------------------------
+using ShoppingStore.StoreDBDataSetTableAdapters;
 
 namespace ShoppingStore
 {
@@ -19,9 +25,32 @@ namespace ShoppingStore
     /// </summary>
     public partial class UserList : Window
     {
+        //List to store all of the users from database table.
+        public List<User> users = new List<User>();
+
+
         public UserList()
         {
             InitializeComponent();
+            //use the PopulateListBox() to populate listbox with database table.
+            PopulateListBox();
+        }
+
+        //Make method to populate listbox on startup
+        private void PopulateListBox()
+        {
+            lstUserList.Items.Clear();
+            users = UsersDB.GetUsersList();
+            //use just add or "+ \n"
+            foreach(User user in users)
+            {
+                lstUserList.Items.Add(user.ToString());
+            }
+        }
+
+        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

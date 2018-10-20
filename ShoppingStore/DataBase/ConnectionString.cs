@@ -10,6 +10,16 @@ namespace ShoppingStore.DataBase
 {
     public class ConnectionString
     {
+        /*
+         *  Had to create a .MDF database in Server Explorer and/or SQL Server Object Explorer
+         *  then create the tables needed. 
+         *  In the SQL SERVER OBJECT EXPLORER created the database under (localdb)\MSSQLLocalDB 
+         *  the db threw an error saying wrong version (Error 852 incorrect version - needed to be version
+         *  701 or lower)
+         *  Then i created database under (localdb)\v11.0 database created successfully without errors.
+         *  Next opened the Data Sources window creating a DataSet to be able to access the sql database.
+         */
+
         public static SqlConnection GetSqlConnection()
         {
             string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Andrew\Documents\GitHub\ShoppingStore\ShoppingStore\StoreDB.mdf;Integrated Security=True;";

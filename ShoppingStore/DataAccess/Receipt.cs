@@ -88,7 +88,7 @@ namespace ShoppingStore.DataAccess
         }
 
         //Default receipt constructor
-        public Receipt() { }
+        //public Receipt() { }
 
         //receipt property constructor
         public Receipt()
