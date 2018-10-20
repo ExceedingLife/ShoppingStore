@@ -61,16 +61,40 @@ namespace ShoppingStore.DataAccess
                 isAdmin = value;
             }
         }
+        //Creating a new property thought of this while creating the Database.
+        //create UserCreatedDate property
+        private DateTime userCreatedDate;
+        public DateTime UserCreatedDate
+        {
+            get
+            {
+                return userCreatedDate;
+            }
+            set
+            {
+                userCreatedDate = value;
+            }
+        }
 
         //Default Constructor for User class
         public User() { }
 
         //Constructor without userID
-        public User(string uname, string pass, bool isadmin)
+        public User(string uname, string pass, bool isadmin, DateTime userDate)
         {
             this.Username = uname;
             this.Password = pass;
             this.IsAdmin = isadmin;
+            this.UserCreatedDate = userDate;
+        }
+        //Constructor with USERID not sure which constructor ill be using yet WITH OR WITHOUT ID
+        public User(int id, string uname, string pass, bool isadmin, DateTime userDate)
+        {
+            this.UserID = id;
+            this.Username = uname;
+            this.Password = pass;
+            this.IsAdmin = isadmin;
+            this.UserCreatedDate = userDate;
         }
 
         //Override the .ToString()
