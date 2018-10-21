@@ -44,7 +44,7 @@ namespace ShoppingStore
             //use just add or "+ \n"
             foreach(User user in users)
             {
-                lstUserList.Items.Add(user.ToString());
+                lstUserList.Items.Add(user);
             }
         }
 

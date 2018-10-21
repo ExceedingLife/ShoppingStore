@@ -30,15 +30,18 @@ namespace ShoppingStore
             //Button click to show the UsersList screen.
             Window srcUsersList = new UserList();
             srcUsersList.ShowDialog();
-            this.Close();
+            //this.Close();
         }
 
         private void btnUserEdit_Click(object sender, RoutedEventArgs e)
         {
             //Button click to show the UsersAdd screen.
             Window srcUsersAdd = new CustomerAdd();
-            srcUsersAdd.ShowDialog();
+            srcUsersAdd.Show();
             this.Close();
+            //Removes parent window from screen 
+            //while .showDialog shows parent behind.
+            //srcUsersAdd.Show();
         }
     }
 }
