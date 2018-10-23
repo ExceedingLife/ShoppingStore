@@ -42,15 +42,36 @@ namespace ShoppingStore
             lstUserList.Items.Clear();
             users = UsersDB.GetUsersList();
             //use just add or "+ \n"
-            foreach(User user in users)
+            foreach (User user in users)
             {
                 lstUserList.Items.Add(user);
             }
         }
 
+        //Method to make a boolean value say 'YES' or 'NO'
+        //public static string MakeBooleanYesOrNo(this bool value)
+        //{
+        //    string boolvalue = "";
+
+        //    if (value.ToString() == "True")
+        //    {
+        //        boolvalue = "Yes";
+        //    }
+        //    else
+        //    {
+        //        boolvalue = "No";
+        //    }
+        //    //return value.ToString();
+        //    return boolvalue;
+        //}
+
+
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
-
+            //Create a brand new user.
+            Window screenNewUser = new CustomerAdd();
+            screenNewUser.Show();
+            this.Close();
         }
     }
 }

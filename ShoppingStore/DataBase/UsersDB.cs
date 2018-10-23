@@ -14,6 +14,10 @@ namespace ShoppingStore.DataBase
         //Get the new database connection in the ConnectionString class.
         public static SqlConnection connection = ConnectionString.GetSqlConnection();
 
+        //SQL_cmd_Query.ExecuteScalar(); - only returns value from first row of the first column.
+        //SQL_cmd_Query.ExecuteReader(); returns object that can iterate over entire result keeping one record in memory.
+        //SQL_cmd_Query.ExecuteNonQuery(); - Does not return data, only # of rows affected by insert, update, or delete.
+
         //Method to get the all users in the database users table.
         public static List<User> GetUsersList()
         {
@@ -31,7 +35,7 @@ namespace ShoppingStore.DataBase
                 //Use SQLDataReader to use cmd and read data from table.
                 //DataReader = fast and lightweight / DataAdapter = holds record heavier but more options
                 SqlDataReader reader = cmdSelectAll.ExecuteReader();
-                while(reader != null && reader.Read())
+                while (reader != null && reader.Read())
                 {
                     //retrieve records from database table. ( .Parse && Convert. to change datatypes)
                     User user = new User();
@@ -44,7 +48,7 @@ namespace ShoppingStore.DataBase
                 }   //Close the SQLDataReader
                 reader.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -54,5 +58,43 @@ namespace ShoppingStore.DataBase
             }
             return users;
         }
+
+        //Method to create a new user and add it to the database.
+        public static int CreateNewUser(User newUser)
+        {
+            //SQL Create Query
+            string SQLinsertQuery = "INSERT INTO Users (Username, Password, IsAdmin, UserCreatedDate) " +
+                "VALUES(@username, @password, @isadmin, @usercreateddate)";
+            //SQL command
+            SqlCommand cmdCreate = new SqlCommand(SQLinsertQuery, connection);
+            cmdCreate.Parameters.AddWithValue("@username", newUser.Username);
+            cmdCreate.Parameters.AddWithValue("@password", newUser.Password);
+            cmdCreate.Parameters.AddWithValue("@isadmin", newUser.IsAdmin);
+            cmdCreate.Parameters.AddWithValue("@usercreateddate", newUser.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                cmdCreate.ExecuteNonQuery();
+                string SQLselect = "SELECT @@IDENTITY FROM Users";
+                SqlCommand cmdSelect = new SqlCommand(SQLselect, connection);
+                int userId = Convert.ToInt32(cmdSelect.ExecuteScalar());
+                return userId;
+            }
+            catch (SqlException sql)
+            {
+                sql.Message.ToString();
+                throw sql;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
     }
 }

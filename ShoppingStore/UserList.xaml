@@ -18,7 +18,7 @@
                 </Style>
             </ListView.Resources>
             <ListView.View>
-                <GridView>
+                <GridView>                    
                     <GridViewColumn Header="Id" Width="40px" DisplayMemberBinding="{Binding UserID}"/>
                     <GridViewColumn Header="Username" Width="120px" DisplayMemberBinding="{Binding Username}"/>
                     <GridViewColumn Header="Password" Width="120px" DisplayMemberBinding="{Binding Password}"/>
@@ -30,6 +30,5 @@
         <Button x:Name="btnAddUser" Content="Add" HorizontalAlignment="Right" Margin="0,100,25,0" VerticalAlignment="Top" Width="120" Height="35" Click="btnAddUser_Click"/>
         <Button x:Name="btnModifyUser" Content="Modify" HorizontalAlignment="Right" Margin="0,0,25,0" VerticalAlignment="Center" Width="120" Height="35"/>
         <Button x:Name="btnDeleteUser" Content="Delete" HorizontalAlignment="Right" Margin="0,0,25,100" VerticalAlignment="Bottom" Width="120" Height="35"/>
-
     </Grid>
 </Window>

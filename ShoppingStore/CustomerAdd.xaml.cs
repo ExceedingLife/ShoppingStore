@@ -11,6 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
+using ShoppingStore.DataAccess;
+using ShoppingStore.DataBase;
+//--------------------------------------------------
+using ShoppingStore.StoreDBDataSetTableAdapters;
 
 namespace ShoppingStore
 {
@@ -19,6 +25,10 @@ namespace ShoppingStore
     /// </summary>
     public partial class CustomerAdd : Window
     {
+        private User user = null;
+        private DateTime date = new DateTime();
+        int isAdministrator = 0;
+
         public CustomerAdd()
         {
             InitializeComponent();
@@ -26,17 +36,41 @@ namespace ShoppingStore
 
         private void btnCreateCustomer_Click(object sender, RoutedEventArgs e)
         {
+            // user = new User();
+            date = DateTime.Now;
+            if (rbtnYes.IsChecked == true)
+            {
+                isAdministrator = 1;
+            }
+            //else
+            //{
+            //    isAdministrator = 0;
+            //}
+            user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
 
+            //Insert new user object into database.
+            UsersDB.CreateNewUser(user);
+
+            //Open the UserList window after creating new user.
+            Window srcUserlist = new UserList();
+            srcUserlist.Show();
+            this.Close();
         }
 
         private void btnAdminScreen_Click(object sender, RoutedEventArgs e)
         {
-
+            //Go back to Administrator Screen
+            Window adminSRC = new AdminWindow();
+            adminSRC.Show();
+            this.Close();
         }
 
         private void btnCustomerList_Click(object sender, RoutedEventArgs e)
         {
-
+            //Go back to Userlist Screen
+            Window userlistSRC = new UserList();
+            userlistSRC.Show();
+            this.Close();
         }
     }
 }

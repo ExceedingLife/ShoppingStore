@@ -54,8 +54,8 @@
                 <!-- Content for row 3-->
                 <Label x:Name="lblContent3" Content="Administrator? : " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" />
                 <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
-                    <RadioButton Content="Yes" GroupName="radioAdmin" VerticalAlignment="Center" Margin="30,0" FontSize="16" ToolTip="If 'Yes' is selected must have password." />
-                    <RadioButton Content="No" GroupName="radioAdmin"  IsChecked="True" VerticalAlignment="Center" Margin="10,0" FontSize="16" />
+                    <RadioButton x:Name="rbtnYes" Content="Yes" GroupName="radioAdmin" VerticalAlignment="Center" Margin="30,0" FontSize="16" ToolTip="If 'Yes' is selected must have password." />
+                    <RadioButton x:Name="rbtnNo" Content="No" GroupName="radioAdmin"  IsChecked="True" VerticalAlignment="Center" Margin="10,0" FontSize="16" ToolTip="Not an administrator" />
                 <!-- radiobtn data possibly needed checked="yes" / "no" --> 
                 </StackPanel>
                 <!-- Content for row 4 -->
