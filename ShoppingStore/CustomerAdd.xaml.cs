@@ -34,6 +34,26 @@ namespace ShoppingStore
             InitializeComponent();
         }
 
+        //Populate CustomerAdd window with User data.
+        public CustomerAdd(User u)
+        {
+            this.user = u;
+            InitializeComponent();
+            PopulateUserData(u);
+        }
+
+        private void PopulateUserData(User selectedUser)
+        {
+            txtUserID.Text = selectedUser.UserID.ToString(); ;
+            txtUsername.Text = selectedUser.Username.ToString();
+            txtPassword.Text = selectedUser.Password.ToString();
+            //if(selectedUser.IsAdmin == true)
+            //{
+            //    rbtnYes = this.rbtnYes.Checked;
+            //}
+
+        }
+
         private void btnCreateCustomer_Click(object sender, RoutedEventArgs e)
         {
             // user = new User();

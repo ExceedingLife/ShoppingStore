@@ -18,6 +18,11 @@ namespace ShoppingStore.DataBase
         //SQL_cmd_Query.ExecuteReader(); returns object that can iterate over entire result keeping one record in memory.
         //SQL_cmd_Query.ExecuteNonQuery(); - Does not return data, only # of rows affected by insert, update, or delete.
 
+        //SqlDataReader is used for querying data from a single SQL table.
+        //DataTable is a subitem of a dataset and represents a database stored in memory.
+        //SqlCommand is responsible with sending the SQL query to the server and returning the results.
+        //SqlDataAdapter is responsible with filling a dataset with the data returned from database.
+
         //Method to get the all users in the database users table.
         public static List<User> GetUsersList()
         {
@@ -89,6 +94,47 @@ namespace ShoppingStore.DataBase
             {
                 ex.Message.ToString();
                 return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //Read specific user by id and return it
+        public static User ReadUserById(int userId)
+        {
+            User user = new User();
+            //SQL Query
+            string SQLreadQuery = "SELECT * FROM Users WHERE UserId =" + userId;
+            //SQL Command
+            SqlCommand cmdRead = new SqlCommand(SQLreadQuery, connection);            
+            try
+            {
+                connection.Open();
+
+                //SQLDataReader 
+                SqlDataReader reader = cmdRead.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    user.UserID = Convert.ToInt32(reader["UserId"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+                    user.UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]);
+                }
+                return user;
+            }
+            catch(SqlException sqlex)
+            {
+                sqlex.Message.ToString();
+                throw sqlex;
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                throw ex;
             }
             finally
             {

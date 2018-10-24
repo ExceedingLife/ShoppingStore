@@ -27,12 +27,12 @@ namespace ShoppingStore
     {
         //List to store all of the users from database table.
         public List<User> users = new List<User>();
+        int selectedIndex = -1;
 
 
         public UserList()
         {
             InitializeComponent();
-            //use the PopulateListBox() to populate listbox with database table.
             PopulateListBox();
         }
 
@@ -41,7 +41,7 @@ namespace ShoppingStore
         {
             lstUserList.Items.Clear();
             users = UsersDB.GetUsersList();
-            //use just add or "+ \n"
+
             foreach (User user in users)
             {
                 lstUserList.Items.Add(user);
@@ -73,5 +73,27 @@ namespace ShoppingStore
             screenNewUser.Show();
             this.Close();
         }
+
+        private void btnModifyUser_Click(object sender, RoutedEventArgs e)
+        {
+            selectedIndex = lstUserList.SelectedIndex;
+
+            if(selectedIndex != -1)
+            {
+                User user = users[selectedIndex];
+                UsersDB.ReadUserById(selectedIndex);
+
+                //Create message to verify edit.
+                string message = "Are you sure you want to edit: " + user.Username + "?";
+                MessageBoxResult readUser = MessageBox.Show(message, "Accept Modify", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if(readUser == MessageBoxResult.Yes)
+                {
+                    Window edit = new CustomerAdd(user);
+                    edit.Show();
+                    this.Close();
+                }
+            }
+        }
+
     }
 }
