@@ -41,7 +41,7 @@ namespace ShoppingStore
             InitializeComponent();
             PopulateUserData(u);
             //Change Create Button text to Update
-            this.btnCreateCustomer.Content = "Update Customer";
+            this.BtnCreateCustomer.Content = "Update Customer";
         }
 
         private void PopulateUserData(User selectedUser)
@@ -56,7 +56,7 @@ namespace ShoppingStore
 
         }
         
-        private void btnCreateCustomer_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateCustomer_Click(object sender, RoutedEventArgs e)
         {
             //Open the UserList window after Creating/Updating a user.
             Window srcUserlist = null;
@@ -71,7 +71,7 @@ namespace ShoppingStore
             //user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
 
             //Check weather this is a NEW user or to UPDATE user.
-            if (btnCreateCustomer.Content.ToString() == "Update Customer")
+            if (BtnCreateCustomer.Content.ToString() == "Update Customer")
                 //(user.UserID != 0)
             {   
                 try
@@ -103,7 +103,7 @@ namespace ShoppingStore
             }
         }
 
-        private void btnAdminScreen_Click(object sender, RoutedEventArgs e)
+        private void BtnAdminScreen_Click(object sender, RoutedEventArgs e)
         {
             //Go back to Administrator Screen
             Window adminSRC = new AdminWindow();
@@ -111,7 +111,7 @@ namespace ShoppingStore
             this.Close();
         }
 
-        private void btnCustomerList_Click(object sender, RoutedEventArgs e)
+        private void BtnCustomerList_Click(object sender, RoutedEventArgs e)
         {
             //Go back to Userlist Screen
             Window userlistSRC = new UserList();

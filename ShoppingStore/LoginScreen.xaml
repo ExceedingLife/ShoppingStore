@@ -30,8 +30,8 @@
                 <TextBox Padding="10" Margin="10" Text="Username" FontSize="18"/>
                 <PasswordBox Padding="10" Margin="10" Password="Password" FontSize="18"/>
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnLoginUser" Content="Login" Margin="60,10,10,10" Padding="50,20" FontSize="18" Click="btnLoginUser_Click" />
-                    <Button x:Name="btnCreateUser" Content="Register" Margin="60,10,0,10" Padding="50,20" FontSize="18" Click="btnCreateUser_Click"/>
+                    <Button x:Name="BtnLoginUser" Content="Login" Margin="60,10,10,10" Padding="50,20" FontSize="18" Click="BtnLoginUser_Click" />
+                    <Button x:Name="BtnCreateUser" Content="Register" Margin="60,10,0,10" Padding="50,20" FontSize="18" Click="BtnCreateUser_Click"/>
                 </StackPanel>               
             </StackPanel>
         </Border>

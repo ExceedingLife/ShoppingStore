@@ -33,11 +33,11 @@ namespace ShoppingStore
         public UserList()
         {
             InitializeComponent();
-            PopulateListBox();
+            PopulateListView();
         }
 
         //Make method to populate listbox on startup
-        private void PopulateListBox()
+        private void PopulateListView()
         {
             lstUserList.Items.Clear();
             users = UsersDB.GetUsersList();
@@ -82,7 +82,7 @@ namespace ShoppingStore
             }
         }
 
-        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
             //Create a brand new user.
             Window screenNewUser = new CustomerAdd();
@@ -90,7 +90,7 @@ namespace ShoppingStore
             this.Close();
         }
 
-        private void btnModifyUser_Click(object sender, RoutedEventArgs e)
+        private void BtnModifyUser_Click(object sender, RoutedEventArgs e)
         {
             selectedIndex = lstUserList.SelectedIndex;
 
@@ -113,38 +113,6 @@ namespace ShoppingStore
         }
 
         //Delete the currently selected User in Listview.
-        private void btnDeleteUser_Click33(object sender, RoutedEventArgs e)
-        {
-            //Get a message to confirm the delete.
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", 
-                "Confirmation of Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-            if(result == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    if(lstUserList.SelectedIndex != -1)
-                    {
-                        // UsersDB.DeleteCurrentUser(users[lstUserList.SelectedIndex]);
-                        if (!UsersDB.DeleteSelectedUser(users[lstUserList.SelectedIndex]))
-                        {
-                            this.GetCurrentUser(selectedUser.UserID);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("No selection made, plz try again.", "Delete Btn Error");
-                    }
-
-                }   //Possible Format Error Exception available.
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-            }
-
-        }
-
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             //Get a message to confirm the delete.
@@ -155,16 +123,19 @@ namespace ShoppingStore
                 try
                 {
                     if(lstUserList.SelectedIndex != -1)
-                    {
+                    {   
+                        // UsersDB.DeleteCurrentUser(users[lstUserList.SelectedIndex]);
                         if (!UsersDB.DeleteSelectedUser(users[lstUserList.SelectedIndex]))
                         {
                             this.GetCurrentUser(selectedUser.UserID);
                         }
+                        
                     }
                     else
                     {
                         MessageBox.Show("No selection made, plz try again.", "Delete Btn Error");
                     }
+                    //PopulateListView();
                 }   //Possible Format Error Exception available.
                 catch(Exception ex)
                 {

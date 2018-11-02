@@ -59,10 +59,10 @@
                 <!-- radiobtn data possibly needed checked="yes" / "no" --> 
                 </StackPanel>
                 <!-- Content for row 4 -->
-                <Button x:Name="btnCreateCustomer" Grid.Row="4" Grid.ColumnSpan="2" Content="Create Customer" Width="120" Height="35" Background="#FFF65124" Click="btnCreateCustomer_Click"/>
+                <Button x:Name="BtnCreateCustomer" Grid.Row="4" Grid.ColumnSpan="2" Content="Create Customer" Width="120" Height="35" Background="#FFF65124" Click="BtnCreateCustomer_Click"/>
             </Grid>
         </Border>
-        <Button x:Name="btnAdminScreen" Grid.Row="5" Grid.Column="1" Content="Admin Screen" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to Admin src" Click="btnAdminScreen_Click" />
-        <Button x:Name="btnCustomerList" Grid.Row="5" Grid.Column="2" Content="Customer List" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to CustomerList src" Click="btnCustomerList_Click" />
+        <Button x:Name="BtnAdminScreen" Grid.Row="5" Grid.Column="1" Content="Admin Screen" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to Admin src" Click="BtnAdminScreen_Click" />
+        <Button x:Name="BtnCustomerList" Grid.Row="5" Grid.Column="2" Content="Customer List" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to CustomerList src" Click="BtnCustomerList_Click" />
     </Grid>
 </Window>
