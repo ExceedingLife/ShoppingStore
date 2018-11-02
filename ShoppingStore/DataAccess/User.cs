@@ -96,6 +96,13 @@ namespace ShoppingStore.DataAccess
             this.IsAdmin = isadmin;
             this.UserCreatedDate = userDate;
         }
+        //Constructor for UPDATE and to keep orginal DateCreated
+        public User(string uname, string pass, bool isadmin)
+        {
+            this.Username = uname;
+            this.Password = pass;
+            this.IsAdmin = isadmin;
+        }
 
         //Override the .ToString()
         public override string ToString()

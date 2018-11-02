@@ -40,6 +40,8 @@ namespace ShoppingStore
             this.user = u;
             InitializeComponent();
             PopulateUserData(u);
+            //Change Create Button text to Update
+            this.btnCreateCustomer.Content = "Update Customer";
         }
 
         private void PopulateUserData(User selectedUser)
@@ -53,28 +55,52 @@ namespace ShoppingStore
             //}
 
         }
-
+        
         private void btnCreateCustomer_Click(object sender, RoutedEventArgs e)
         {
-            // user = new User();
-            date = DateTime.Now;
+            //Open the UserList window after Creating/Updating a user.
+            Window srcUserlist = null;
+            
+            //DateTime oldDate = new DateTime();
+
             if (rbtnYes.IsChecked == true)
             {
                 isAdministrator = 1;
             }
-            //else
-            //{
-            //    isAdministrator = 0;
-            //}
-            user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
+            //Store all textbox data into a User object.
+            //user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
 
-            //Insert new user object into database.
-            UsersDB.CreateNewUser(user);
+            //Check weather this is a NEW user or to UPDATE user.
+            if (btnCreateCustomer.Content.ToString() == "Update Customer")
+                //(user.UserID != 0)
+            {   
+                try
+                {
+                    date = user.UserCreatedDate;
+                    user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
+                    //Update selected user
+                    UsersDB.UpdateCurrentUser(user);
 
-            //Open the UserList window after creating new user.
-            Window srcUserlist = new UserList();
-            srcUserlist.Show();
-            this.Close();
+                    srcUserlist = new UserList();
+                    srcUserlist.Show();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }                   
+            }
+            else
+            {
+                date = DateTime.Now;
+                user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
+                //Insert new user object into database.
+                UsersDB.CreateNewUser(user);
+
+                srcUserlist = new UserList();
+                srcUserlist.Show();
+                this.Close();
+            }
         }
 
         private void btnAdminScreen_Click(object sender, RoutedEventArgs e)
@@ -89,7 +115,7 @@ namespace ShoppingStore
         {
             //Go back to Userlist Screen
             Window userlistSRC = new UserList();
-            userlistSRC.Show();
+            userlistSRC.Show();            
             this.Close();
         }
     }

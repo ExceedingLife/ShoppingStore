@@ -142,5 +142,142 @@ namespace ShoppingStore.DataBase
             }
         }
 
+        //HERE IS SOMETHING I AM GOING TO TRY
+        //-GET USER AND ALL DATA BY ID AND EXECUTE BY SINGLEROW
+        public static User GetUserById(int userId)
+        {            
+            string SQLreadQuery = "SELECT Username, Password, IsAdmin, UserCreatedDate FROM Users WHERE UserId = " + userId;//or SELECT ea column or *.
+            SqlCommand cmdRead = new SqlCommand(SQLreadQuery, connection);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = cmdRead.ExecuteReader(CommandBehavior.SingleRow);
+                if(reader.Read())
+                {
+                    User user = new User();
+                    user.UserID = Convert.ToInt32(reader["UserId"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+                    user.UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]);
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //Method to update current selected user and store it in database.
+        public static int UpdateCurrentUser(User user)
+        {
+            int result = -1;
+            //SQL Update Query Text.
+            string SQLupdateQuery = "UPDATE 'Users' SET Username = @username, Password = @password, " +
+                 "IsAdmin = @isadmin, UserCreatedDate = @usercreateddate WHERE UserId = @userid";
+            //SQL Command
+            SqlCommand cmdUpdate = new SqlCommand(SQLupdateQuery, connection);
+            cmdUpdate.Parameters.AddWithValue("@userid", user.UserID);
+            cmdUpdate.Parameters.AddWithValue("@username", user.Username);
+            cmdUpdate.Parameters.AddWithValue("@password", user.Password);
+            cmdUpdate.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            cmdUpdate.Parameters.AddWithValue("@usercreateddate", user.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                result = cmdUpdate.ExecuteNonQuery();
+            }
+            catch(SqlException sqlex)
+            {
+                sqlex.Message.ToString();
+                throw sqlex;
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return result;
+        }
+
+        //Method to DELETE selected user in the database.       int or bool?? =-1  cmd=nonQ return ^
+        public static bool DeleteCurrentUser(int userId)
+        {
+            bool result = false;
+            //SQL Delete Query
+            string SQLdeleteQuery = "DELETE FROM Users WHERE UserId = @userid";
+            //SQLcommand
+            SqlCommand cmdDelete = new SqlCommand(SQLdeleteQuery, connection);
+            cmdDelete.Parameters.AddWithValue("@userid", userId);
+            try
+            {
+                connection.Open();
+                int numberOfRows = cmdDelete.ExecuteNonQuery();
+                if (numberOfRows > 0)
+                    result = true;
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                result = false;
+                throw ex;              
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return result;
+        }
+        //Herrre is another deletion method but this one is (User user) instead (int id).
+        public static bool DeleteSelectedUser(User user)
+        {
+            bool result = false;
+            string SQLdeleteQuery = "DELETE FROM Users WHERE UserId=@userid AND Username=@username " +
+                "AND Password=@password AND IsAdmin=@isadmin AND UserCreatedDate=@usercreateddate";
+            SqlCommand cmdDelete = new SqlCommand(SQLdeleteQuery, connection);
+            cmdDelete.Parameters.AddWithValue("@userid", user.UserID);
+            cmdDelete.Parameters.AddWithValue("@username", user.Username);
+            cmdDelete.Parameters.AddWithValue("@password", user.Password);
+            cmdDelete.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            cmdDelete.Parameters.AddWithValue("@usercreateddate", user.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                int row = cmdDelete.ExecuteNonQuery();
+                if (row > 0)
+                    result = true;
+                else
+                    result = false;
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                result = false;
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return result;
+        }
+
+
+
+
     }
 }
