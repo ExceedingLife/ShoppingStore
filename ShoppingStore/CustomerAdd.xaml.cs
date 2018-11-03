@@ -37,14 +37,14 @@ namespace ShoppingStore
         //Populate CustomerAdd window with User data.
         public CustomerAdd(User u)
         {
-            this.user = u;
+            user = u;
             InitializeComponent();
             PopulateUserData(u);
             //Change Create Button text to Update
-            this.BtnCreateCustomer.Content = "Update Customer";
+            BtnCreateCustomer.Content = "Update Customer";
         }
 
-        private void PopulateUserData(User selectedUser)
+        private void PopulateUserData(User selectedUser)    //TO-DO: RBTN SELECTION
         {
             txtUserID.Text = selectedUser.UserID.ToString(); ;
             txtUsername.Text = selectedUser.Username.ToString();
@@ -60,25 +60,21 @@ namespace ShoppingStore
         {
             //Open the UserList window after Creating/Updating a user.
             Window srcUserlist = null;
-            
-            //DateTime oldDate = new DateTime();
 
             if (rbtnYes.IsChecked == true)
             {
                 isAdministrator = 1;
             }
             //Store all textbox data into a User object.
-            //user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
-
             //Check weather this is a NEW user or to UPDATE user.
             if (BtnCreateCustomer.Content.ToString() == "Update Customer")
-                //(user.UserID != 0)
             {   
                 try
                 {
                     date = user.UserCreatedDate;
-                    user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
+                    user = new User(Convert.ToInt32(txtUserID.Text), txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
                     //Update selected user
+                    //UsersDB.UpdateSelectedUserVoid(user);
                     UsersDB.UpdateCurrentUser(user);
 
                     srcUserlist = new UserList();
@@ -92,14 +88,22 @@ namespace ShoppingStore
             }
             else
             {
-                date = DateTime.Now;
-                user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
-                //Insert new user object into database.
-                UsersDB.CreateNewUser(user);
+                try
+                {
+                    date = DateTime.Now;
+                    user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
+                    //Create new user
+                    UsersDB.CreateNewUser(user);
 
-                srcUserlist = new UserList();
-                srcUserlist.Show();
-                this.Close();
+                    srcUserlist = new UserList();
+                    srcUserlist.Show();
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+
             }
         }
 

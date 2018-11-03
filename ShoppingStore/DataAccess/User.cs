@@ -8,78 +8,48 @@ namespace ShoppingStore.DataAccess
 {
     public class User
     {
+        //IMPLEMENTING/UPDATING C# CODE TO VERSION 7.0.
         //create UserID property
-        private int userID;
+        private int _userId;
         public int UserID
         {
-            get
-            {
-                return userID;
-            }
-            set
-            {
-                userID = value;
-            }
+            get => _userId;                     //get { return _userId; }
+            set => _userId = value;             //set { _userId = value; }
         }
         //create username property
-        private string username;
+        private string _username;
         public string Username
         {
-            get
-            {
-                return username;
-            }
-            set
-            {
-                username = value;
-            }
+            get => _username;                   //get { return username; }
+            set => _username = value;           //set { _username = value; }
         }
         //create password property
-        private string password;
+        private string _password;
         public string Password
         {
-            get
-            {
-                return password;
-            }
-            set
-            {
-                password = value;
-            }
+            get => _password;                   //get { return _password; }
+            set => _password = value;           //set { _password = value; }
         }
-        //THINK ABOUT OTHER OPTIONS FOR REGISTERING AS AN ADMINISTRATOR!?*
         //create isAdmin property
-        private bool isAdmin;
+        private bool _isAdmin;
         public bool IsAdmin
         {
-            get
-            {
-                return isAdmin;
-            }
-            set
-            {
-                isAdmin = value;
-            }
+            get => _isAdmin;                    //get { return _isAdmin; }
+            set => _isAdmin = value;            //set { _isAdmin = value; }
         }
         //Creating a new property thought of this while creating the Database.
         //create UserCreatedDate property
-        private DateTime userCreatedDate;
+        private DateTime _userCreatedDate;
         public DateTime UserCreatedDate
         {
-            get
-            {
-                return userCreatedDate;
-            }
-            set
-            {
-                userCreatedDate = value;
-            }
+            get => _userCreatedDate;            //get { return _userCreatedDate; }
+            set => _userCreatedDate = value;    //set { _userCreatedDate = value; }
         }
 
         //Default Constructor for User class
         public User() { }
 
-        //Constructor without userID
+        //Constructor without UserId (USED FOR CREATING NEW USER)
         public User(string uname, string pass, bool isadmin, DateTime userDate)
         {
             this.Username = uname;
@@ -87,7 +57,7 @@ namespace ShoppingStore.DataAccess
             this.IsAdmin = isadmin;
             this.UserCreatedDate = userDate;
         }
-        //Constructor with USERID not sure which constructor ill be using yet WITH OR WITHOUT ID
+        //Constructor with UserId (USED FOR UPDATING CURRENTLY SELECTED USER)
         public User(int id, string uname, string pass, bool isadmin, DateTime userDate)
         {
             this.UserID = id;
@@ -96,7 +66,7 @@ namespace ShoppingStore.DataAccess
             this.IsAdmin = isadmin;
             this.UserCreatedDate = userDate;
         }
-        //Constructor for UPDATE and to keep orginal DateCreated
+        //Constructor for UPDATE and to keep orginal DateCreated ~~(UPDATE: DON'T THINK I NEED)~~11/2/18~
         public User(string uname, string pass, bool isadmin)
         {
             this.Username = uname;
@@ -107,7 +77,8 @@ namespace ShoppingStore.DataAccess
         //Override the .ToString()
         public override string ToString()
         {
-            return String.Format("Username: {0} - Password: {1} - IsAdmin: {2}", Username, Password, IsAdmin);
+            return String.Format("ID: {4} - Username: {0} - Password: {1} - IsAdmin: {2} - UserCreatedDate: {3}",
+                Username, Password, IsAdmin, UserCreatedDate, UserID);
             //return base.ToString();
         }
 

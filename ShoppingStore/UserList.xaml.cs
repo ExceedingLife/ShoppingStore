@@ -97,6 +97,7 @@ namespace ShoppingStore
             if (selectedIndex != -1)
             {
                 User user = users[selectedIndex];
+                //do i need to read by id below?
                 UsersDB.ReadUserById(selectedIndex);
 
                 //Create message to verify edit.
@@ -112,7 +113,7 @@ namespace ShoppingStore
             }
         }
 
-        //Delete the currently selected User in Listview.
+        //Delete the currently selected User in Listview.       ~POPULATE AFTER BTNCLICK :: TO-DO~
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             //Get a message to confirm the delete.
@@ -129,19 +130,18 @@ namespace ShoppingStore
                         {
                             this.GetCurrentUser(selectedUser.UserID);
                         }
-                        
+                       // PopulateListView();
                     }
                     else
                     {
                         MessageBox.Show("No selection made, plz try again.", "Delete Btn Error");
-                    }
-                    //PopulateListView();
+                    }                    
                 }   //Possible Format Error Exception available.
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message.ToString());
-                }
-            }
+                }                
+            }            
         }
     }
 }

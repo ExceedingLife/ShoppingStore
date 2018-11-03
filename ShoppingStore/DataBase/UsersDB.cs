@@ -179,11 +179,11 @@ namespace ShoppingStore.DataBase
         }
 
         //Method to update current selected user and store it in database.
-        public static int UpdateCurrentUser(User user)
+        public static bool UpdateCurrentUser(User user)
         {
-            int result = -1;
+            bool result = false;
             //SQL Update Query Text.
-            string SQLupdateQuery = "UPDATE 'Users' SET Username = @username, Password = @password, " +
+            string SQLupdateQuery = "UPDATE Users SET Username = @username, Password = @password, " +
                  "IsAdmin = @isadmin, UserCreatedDate = @usercreateddate WHERE UserId = @userid";
             //SQL Command
             SqlCommand cmdUpdate = new SqlCommand(SQLupdateQuery, connection);
@@ -195,7 +195,8 @@ namespace ShoppingStore.DataBase
             try
             {
                 connection.Open();
-                result = cmdUpdate.ExecuteNonQuery();
+                cmdUpdate.ExecuteNonQuery();
+                result = true;
             }
             catch(SqlException sqlex)
             {
@@ -212,6 +213,32 @@ namespace ShoppingStore.DataBase
                 connection.Close();
             }
             return result;
+        }
+        //2ND UPDATE METHOD SQL QUERY "VOID" INSTEAD OF "INT"   second attempt.
+        public static void UpdateSelectedUserVoid(User user)
+        {
+            string SQLupdateQuery = "UPDATE Users SET Username=@username, Password=@password, " +
+                "IsAdmin=@isadmin, UserCreatedDate=@usercreateddate WHERE UserId=@userid";
+            SqlCommand cmdUpdate = new SqlCommand(SQLupdateQuery, connection);
+            cmdUpdate.Parameters.AddWithValue("@userid", user.UserID);
+            cmdUpdate.Parameters.AddWithValue("@username", user.Username);
+            cmdUpdate.Parameters.AddWithValue("@password", user.Password);
+            cmdUpdate.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            cmdUpdate.Parameters.AddWithValue("@usercreateddate", user.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                cmdUpdate.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         //Method to DELETE selected user in the database.       int or bool?? =-1  cmd=nonQ return ^
