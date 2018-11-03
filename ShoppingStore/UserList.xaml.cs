@@ -66,15 +66,14 @@ namespace ShoppingStore
         //}
 
 
-        //Get the current selected User by Id
+        //Get the currently selected UserId
         private void GetCurrentUser(int userid)
         {
             try
             {
                 selectedUser = UsersDB.GetUserById(userid);
                 
-                ////selectedProduct = UsersDB.ReadUserById(userid);
-                //if(lstUserList.SelectedIndex != -1) //{ }
+                //selectedUser = UsersDB.ReadUserById(userid);
             }
             catch(Exception ex)
             {
@@ -84,7 +83,6 @@ namespace ShoppingStore
 
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            //Create a brand new user.
             Window screenNewUser = new CustomerAdd();
             screenNewUser.Show();
             this.Close();
@@ -96,51 +94,53 @@ namespace ShoppingStore
 
             if (selectedIndex != -1)
             {
-                User user = users[selectedIndex];
-                //do i need to read by id below?
-                UsersDB.ReadUserById(selectedIndex);
+                selectedUser = users[selectedIndex];
 
                 //Create message to verify edit.
-                string message = "Are you sure you want to edit: " + user.Username + "?";
+                string message = "Are you sure you want to edit: " + selectedUser.Username + "?";
                 MessageBoxResult readUser = MessageBox.Show(message, "Accept Modify", 
                     MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
                 if (readUser == MessageBoxResult.Yes)
                 {
-                    Window edit = new CustomerAdd(user);
+                    Window edit = new CustomerAdd(selectedUser);
                     edit.Show();
                     this.Close();
                 }
             }
         }
 
-        //Delete the currently selected User in Listview.       ~POPULATE AFTER BTNCLICK :: TO-DO~
+        //Delete the currently selected User in Listview.
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            //Get a message to confirm the delete.
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?",
-                "Confirmation of Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            selectedUser = users[lstUserList.SelectedIndex];
+
+            //DISPLAY A MESSAGEBOX TO CONFIRM DELETE.
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete: " +
+                selectedUser.Username + "?", "Delete Confirmation", 
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
             if(result == MessageBoxResult.Yes)
             {
                 try
                 {
                     if(lstUserList.SelectedIndex != -1)
-                    {   
-                        // UsersDB.DeleteCurrentUser(users[lstUserList.SelectedIndex]);
+                    {
                         if (!UsersDB.DeleteSelectedUser(users[lstUserList.SelectedIndex]))
                         {
-                            this.GetCurrentUser(selectedUser.UserID);
-                        }
-                       // PopulateListView();
+                            GetCurrentUser(selectedUser.UserID);                            
+                        }                        
                     }
                     else
                     {
                         MessageBox.Show("No selection made, plz try again.", "Delete Btn Error");
-                    }                    
-                }   //Possible Format Error Exception available.
+                    }                     
+                }
                 catch(Exception ex)
                 {
                     MessageBox.Show(ex.Message.ToString());
-                }                
+                }  
+                PopulateListView();
             }            
         }
     }

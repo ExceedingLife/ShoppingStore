@@ -52,26 +52,26 @@ namespace ShoppingStore.DataAccess
         //Constructor without UserId (USED FOR CREATING NEW USER)
         public User(string uname, string pass, bool isadmin, DateTime userDate)
         {
-            this.Username = uname;
-            this.Password = pass;
-            this.IsAdmin = isadmin;
-            this.UserCreatedDate = userDate;
+            Username = uname;
+            Password = pass;
+            IsAdmin = isadmin;
+            UserCreatedDate = userDate;
         }
         //Constructor with UserId (USED FOR UPDATING CURRENTLY SELECTED USER)
         public User(int id, string uname, string pass, bool isadmin, DateTime userDate)
         {
-            this.UserID = id;
-            this.Username = uname;
-            this.Password = pass;
-            this.IsAdmin = isadmin;
-            this.UserCreatedDate = userDate;
+            UserID = id;
+            Username = uname;
+            Password = pass;
+            IsAdmin = isadmin;
+            UserCreatedDate = userDate;
         }
         //Constructor for UPDATE and to keep orginal DateCreated ~~(UPDATE: DON'T THINK I NEED)~~11/2/18~
         public User(string uname, string pass, bool isadmin)
         {
-            this.Username = uname;
-            this.Password = pass;
-            this.IsAdmin = isadmin;
+            Username = uname;
+            Password = pass;
+            IsAdmin = isadmin;
         }
 
         //Override the .ToString()
@@ -83,22 +83,22 @@ namespace ShoppingStore.DataAccess
         }
 
         //Override the .Equals()
-        public override bool Equals(object obj)
-        {
-            if(obj == null)
-            {
-                return false;
-            }
-            User user = (User)obj;
+        //public override bool Equals(object obj)
+        //{
+        //    if(obj == null)
+        //    {
+        //        return false;
+        //    }
+        //    User user = (User)obj;
 
-            return Username.Equals(user.Username) && Password.Equals(user.Password) && IsAdmin.Equals(user.IsAdmin);
-            //return base.Equals(obj);
-        }
+        //    return Username.Equals(user.Username) && Password.Equals(user.Password) && IsAdmin.Equals(user.IsAdmin);
+        //    //return base.Equals(obj);
+        //}
 
         //Override the .GetHashCode()
         public override int GetHashCode()
         {
-            return this.ToString().GetHashCode();
+            return ToString().GetHashCode();
             //return base.GetHashCode();
         }
     }

@@ -49,11 +49,12 @@ namespace ShoppingStore
             txtUserID.Text = selectedUser.UserID.ToString(); ;
             txtUsername.Text = selectedUser.Username.ToString();
             txtPassword.Text = selectedUser.Password.ToString();
-            //if(selectedUser.IsAdmin == true)
-            //{
-            //    rbtnYes = this.rbtnYes.Checked;
-            //}
-
+            if (selectedUser.IsAdmin == true)
+            {
+                rbtnYes.IsChecked = true;
+            }
+            else
+                rbtnNo.IsChecked = true;
         }
         
         private void BtnCreateCustomer_Click(object sender, RoutedEventArgs e)
@@ -72,7 +73,8 @@ namespace ShoppingStore
                 try
                 {
                     date = user.UserCreatedDate;
-                    user = new User(Convert.ToInt32(txtUserID.Text), txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
+                    user = new User(Convert.ToInt32(txtUserID.Text), txtUsername.Text, txtPassword.Text, 
+                                    Convert.ToBoolean(isAdministrator), date);
                     //Update selected user
                     //UsersDB.UpdateSelectedUserVoid(user);
                     UsersDB.UpdateCurrentUser(user);

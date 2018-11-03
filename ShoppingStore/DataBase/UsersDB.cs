@@ -141,12 +141,12 @@ namespace ShoppingStore.DataBase
                 connection.Close();
             }
         }
-
         //HERE IS SOMETHING I AM GOING TO TRY
         //-GET USER AND ALL DATA BY ID AND EXECUTE BY SINGLEROW
         public static User GetUserById(int userId)
         {            
-            string SQLreadQuery = "SELECT Username, Password, IsAdmin, UserCreatedDate FROM Users WHERE UserId = " + userId;//or SELECT ea column or *.
+            string SQLreadQuery = "SELECT Username, Password, IsAdmin, UserCreatedDate " +
+                                  "FROM Users WHERE UserId = " + userId; //or SELECT ea column or *.
             SqlCommand cmdRead = new SqlCommand(SQLreadQuery, connection);
             try
             {
@@ -198,11 +198,6 @@ namespace ShoppingStore.DataBase
                 cmdUpdate.ExecuteNonQuery();
                 result = true;
             }
-            catch(SqlException sqlex)
-            {
-                sqlex.Message.ToString();
-                throw sqlex;
-            }
             catch(Exception ex)
             {
                 ex.Message.ToString();
@@ -214,7 +209,7 @@ namespace ShoppingStore.DataBase
             }
             return result;
         }
-        //2ND UPDATE METHOD SQL QUERY "VOID" INSTEAD OF "INT"   second attempt.
+        //2ND UPDATE METHOD SQL QUERY "VOID" INSTEAD OF "INT"
         public static void UpdateSelectedUserVoid(User user)
         {
             string SQLupdateQuery = "UPDATE Users SET Username=@username, Password=@password, " +
@@ -241,35 +236,8 @@ namespace ShoppingStore.DataBase
             }
         }
 
-        //Method to DELETE selected user in the database.       int or bool?? =-1  cmd=nonQ return ^
-        public static bool DeleteCurrentUser(int userId)
-        {
-            bool result = false;
-            //SQL Delete Query
-            string SQLdeleteQuery = "DELETE FROM Users WHERE UserId = @userid";
-            //SQLcommand
-            SqlCommand cmdDelete = new SqlCommand(SQLdeleteQuery, connection);
-            cmdDelete.Parameters.AddWithValue("@userid", userId);
-            try
-            {
-                connection.Open();
-                int numberOfRows = cmdDelete.ExecuteNonQuery();
-                if (numberOfRows > 0)
-                    result = true;
-            }
-            catch(Exception ex)
-            {
-                ex.Message.ToString();
-                result = false;
-                throw ex;              
-            }
-            finally
-            {
-                connection.Close();
-            }
-            return result;
-        }
-        //Herrre is another deletion method but this one is (User user) instead (int id).
+
+        //Method to DELETE currently selected user.
         public static bool DeleteSelectedUser(User user)
         {
             bool result = false;

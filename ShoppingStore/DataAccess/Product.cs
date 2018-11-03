@@ -28,6 +28,12 @@ namespace ShoppingStore.DataAccess
         //create productTotal property
         public decimal ProductTotal { get; set; }
 
+        //create productListedDate property
+        public DateTime ProductListedDate { get; set; }
+
+        //create productPurchasedDate property
+        public DateTime ProductPurchasedDate { get; set; }
+
         //create userID property
         public int UserID { get; set; }
 
@@ -38,11 +44,37 @@ namespace ShoppingStore.DataAccess
         //Default Product Constructor
         public Product() { }
 
-        //product property constructor
-        //public Product()
-        //{
-        //    //all properties listed here
-        //}
+        //Product ALL Properties Constructor w/ID's. (USED FOR CREATING NEW PRODUCT)
+        public Product(int prodId, string pName, decimal pPrice, int pQuan, decimal pTax, 
+                       decimal pTotal, DateTime pListedDate, DateTime pPurchasedDate, 
+                       int userId, int receiptId)
+        {
+            ProductID = prodId;
+            ProductName = pName;
+            ProductPrice = pPrice;
+            ProductQuantity = pQuan;
+            ProductTax = pTax;
+            ProductTotal = pTotal;
+            ProductListedDate = pListedDate;
+            ProductPurchasedDate = pPurchasedDate;
+            UserID = userId;
+            ReceiptID = receiptId;
+        }
+        //Product ALL Properties Constructor w/o ProdID.
+        public Product(string pName, decimal pPrice, int pQuan, decimal pTax,
+                       decimal pTotal, DateTime pListedDate, DateTime pPurchasedDate, 
+                       int userId, int receiptId)
+        {
+            ProductName = pName;
+            ProductPrice = pPrice;
+            ProductQuantity = pQuan;
+            ProductTax = pTax;
+            ProductTotal = pTotal;
+            ProductListedDate = pListedDate;
+            ProductPurchasedDate = pPurchasedDate;
+            UserID = userId;
+            ReceiptID = receiptId;
+        }
         //methods
     }
 }
