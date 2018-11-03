@@ -44,7 +44,7 @@ namespace ShoppingStore
             BtnCreateCustomer.Content = "Update Customer";
         }
 
-        private void PopulateUserData(User selectedUser)    //TO-DO: RBTN SELECTION
+        private void PopulateUserData(User selectedUser)
         {
             txtUserID.Text = selectedUser.UserID.ToString(); ;
             txtUsername.Text = selectedUser.Username.ToString();
