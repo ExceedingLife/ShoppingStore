@@ -22,7 +22,10 @@ namespace ShoppingStore.DataBase
 
         public static SqlConnection GetSqlConnection()
         {
-            string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Andrew\Documents\GitHub\ShoppingStore\ShoppingStore\StoreDB.mdf;Integrated Security=True;";
+            string connectionString = @"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = C:\Users\extre_000\Documents\GitHub\ShoppingStore\ShoppingStore\StoreDB.mdf; Integrated Security = True; Connect Timeout = 80";
+
+            //@"Data Source=(LocalDB)\v11.0;AttachDbFilename=C:\Users\Andrew\Documents\GitHub\ShoppingStore\ShoppingStore\StoreDB.mdf;Integrated Security=True;";
+
             SqlConnection connection = new SqlConnection(connectionString);
             return connection;
         }

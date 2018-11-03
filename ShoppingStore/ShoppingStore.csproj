@@ -92,7 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="AdminWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -103,8 +103,8 @@
     <Compile Include="DataAccess\Product.cs" />
     <Compile Include="DataAccess\Receipt.cs" />
     <Compile Include="DataAccess\User.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserList.xaml">

@@ -14,6 +14,15 @@ namespace ShoppingStore.DataBase
         //Get the new database connection in the ConnectionString class.
         public static SqlConnection connection = ConnectionString.GetSqlConnection();
 
+        //SQL_cmd_Query.ExecuteScalar(); - only returns value from first row of the first column.
+        //SQL_cmd_Query.ExecuteReader(); returns object that can iterate over entire result keeping one record in memory.
+        //SQL_cmd_Query.ExecuteNonQuery(); - Does not return data, only # of rows affected by insert, update, or delete.
+
+        //SqlDataReader is used for querying data from a single SQL table.
+        //DataTable is a subitem of a dataset and represents a database stored in memory.
+        //SqlCommand is responsible with sending the SQL query to the server and returning the results.
+        //SqlDataAdapter is responsible with filling a dataset with the data returned from database.
+
         //Method to get the all users in the database users table.
         public static List<User> GetUsersList()
         {
@@ -31,7 +40,7 @@ namespace ShoppingStore.DataBase
                 //Use SQLDataReader to use cmd and read data from table.
                 //DataReader = fast and lightweight / DataAdapter = holds record heavier but more options
                 SqlDataReader reader = cmdSelectAll.ExecuteReader();
-                while(reader != null && reader.Read())
+                while (reader != null && reader.Read())
                 {
                     //retrieve records from database table. ( .Parse && Convert. to change datatypes)
                     User user = new User();
@@ -44,7 +53,7 @@ namespace ShoppingStore.DataBase
                 }   //Close the SQLDataReader
                 reader.Close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
@@ -54,5 +63,216 @@ namespace ShoppingStore.DataBase
             }
             return users;
         }
+
+        //Method to create a new user and add it to the database.
+        public static int CreateNewUser(User newUser)
+        {
+            //SQL Create Query
+            string SQLinsertQuery = "INSERT INTO Users (Username, Password, IsAdmin, UserCreatedDate) " +
+                "VALUES(@username, @password, @isadmin, @usercreateddate)";
+            //SQL command
+            SqlCommand cmdCreate = new SqlCommand(SQLinsertQuery, connection);
+            cmdCreate.Parameters.AddWithValue("@username", newUser.Username);
+            cmdCreate.Parameters.AddWithValue("@password", newUser.Password);
+            cmdCreate.Parameters.AddWithValue("@isadmin", newUser.IsAdmin);
+            cmdCreate.Parameters.AddWithValue("@usercreateddate", newUser.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                cmdCreate.ExecuteNonQuery();
+                string SQLselect = "SELECT @@IDENTITY FROM Users";
+                SqlCommand cmdSelect = new SqlCommand(SQLselect, connection);
+                int userId = Convert.ToInt32(cmdSelect.ExecuteScalar());
+                return userId;
+            }
+            catch (SqlException sql)
+            {
+                sql.Message.ToString();
+                throw sql;
+            }
+            catch (Exception ex)
+            {
+                ex.Message.ToString();
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //Read specific user by id and return it
+        public static User ReadUserById(int userId)
+        {
+            User user = new User();
+            //SQL Query
+            string SQLreadQuery = "SELECT * FROM Users WHERE UserId =" + userId;
+            //SQL Command
+            SqlCommand cmdRead = new SqlCommand(SQLreadQuery, connection);            
+            try
+            {
+                connection.Open();
+
+                //SQLDataReader 
+                SqlDataReader reader = cmdRead.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    user.UserID = Convert.ToInt32(reader["UserId"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+                    user.UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]);
+                }
+                return user;
+            }
+            catch(SqlException sqlex)
+            {
+                sqlex.Message.ToString();
+                throw sqlex;
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        //HERE IS SOMETHING I AM GOING TO TRY
+        //-GET USER AND ALL DATA BY ID AND EXECUTE BY SINGLEROW
+        public static User GetUserById(int userId)
+        {            
+            string SQLreadQuery = "SELECT Username, Password, IsAdmin, UserCreatedDate " +
+                                  "FROM Users WHERE UserId = " + userId; //or SELECT ea column or *.
+            SqlCommand cmdRead = new SqlCommand(SQLreadQuery, connection);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = cmdRead.ExecuteReader(CommandBehavior.SingleRow);
+                if(reader.Read())
+                {
+                    User user = new User();
+                    user.UserID = Convert.ToInt32(reader["UserId"]);
+                    user.Username = reader["Username"].ToString();
+                    user.Password = reader["Password"].ToString();
+                    user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+                    user.UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]);
+                    return user;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                return null;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        //Method to update current selected user and store it in database.
+        public static bool UpdateCurrentUser(User user)
+        {
+            bool result = false;
+            //SQL Update Query Text.
+            string SQLupdateQuery = "UPDATE Users SET Username = @username, Password = @password, " +
+                 "IsAdmin = @isadmin, UserCreatedDate = @usercreateddate WHERE UserId = @userid";
+            //SQL Command
+            SqlCommand cmdUpdate = new SqlCommand(SQLupdateQuery, connection);
+            cmdUpdate.Parameters.AddWithValue("@userid", user.UserID);
+            cmdUpdate.Parameters.AddWithValue("@username", user.Username);
+            cmdUpdate.Parameters.AddWithValue("@password", user.Password);
+            cmdUpdate.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            cmdUpdate.Parameters.AddWithValue("@usercreateddate", user.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                cmdUpdate.ExecuteNonQuery();
+                result = true;
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return result;
+        }
+        //2ND UPDATE METHOD SQL QUERY "VOID" INSTEAD OF "INT"
+        public static void UpdateSelectedUserVoid(User user)
+        {
+            string SQLupdateQuery = "UPDATE Users SET Username=@username, Password=@password, " +
+                "IsAdmin=@isadmin, UserCreatedDate=@usercreateddate WHERE UserId=@userid";
+            SqlCommand cmdUpdate = new SqlCommand(SQLupdateQuery, connection);
+            cmdUpdate.Parameters.AddWithValue("@userid", user.UserID);
+            cmdUpdate.Parameters.AddWithValue("@username", user.Username);
+            cmdUpdate.Parameters.AddWithValue("@password", user.Password);
+            cmdUpdate.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            cmdUpdate.Parameters.AddWithValue("@usercreateddate", user.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                cmdUpdate.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+        //Method to DELETE currently selected user.
+        public static bool DeleteSelectedUser(User user)
+        {
+            bool result = false;
+            string SQLdeleteQuery = "DELETE FROM Users WHERE UserId=@userid AND Username=@username " +
+                "AND Password=@password AND IsAdmin=@isadmin AND UserCreatedDate=@usercreateddate";
+            SqlCommand cmdDelete = new SqlCommand(SQLdeleteQuery, connection);
+            cmdDelete.Parameters.AddWithValue("@userid", user.UserID);
+            cmdDelete.Parameters.AddWithValue("@username", user.Username);
+            cmdDelete.Parameters.AddWithValue("@password", user.Password);
+            cmdDelete.Parameters.AddWithValue("@isadmin", user.IsAdmin);
+            cmdDelete.Parameters.AddWithValue("@usercreateddate", user.UserCreatedDate);
+            try
+            {
+                connection.Open();
+                int row = cmdDelete.ExecuteNonQuery();
+                if (row > 0)
+                    result = true;
+                else
+                    result = false;
+            }
+            catch(Exception ex)
+            {
+                ex.Message.ToString();
+                result = false;
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return result;
+        }
+
+
+
+
     }
 }

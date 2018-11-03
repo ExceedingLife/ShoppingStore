@@ -18,14 +18,14 @@ namespace ShoppingStore
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AdminWindow : Window
     {
-        public MainWindow()
+        public AdminWindow()
         {
             InitializeComponent();
         }
 
-        private void btnUserList_Click(object sender, RoutedEventArgs e)
+        private void BtnUserList_Click(object sender, RoutedEventArgs e)
         {
             //Button click to show the UsersList screen.
             Window srcUsersList = new UserList();
@@ -33,12 +33,16 @@ namespace ShoppingStore
             this.Close();
         }
 
-        private void btnUserEdit_Click(object sender, RoutedEventArgs e)
+        private void BtnUserEdit_Click(object sender, RoutedEventArgs e)
         {
             //Button click to show the UsersAdd screen.
             Window srcUsersAdd = new CustomerAdd();
-            srcUsersAdd.ShowDialog();
+            srcUsersAdd.Show();
             this.Close();
+
+            //.Show() lets user click parent window
+            //.ShowDialog does not let user click parent window
+            //srcUsersAdd.Show();
         }
     }
 }

@@ -154,3 +154,6 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+ShoppingStore/StoreDB.mdf
+ShoppingStore/StoreDB_log.ldf
+*.lock

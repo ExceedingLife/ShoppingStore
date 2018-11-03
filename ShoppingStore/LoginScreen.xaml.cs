@@ -24,12 +24,14 @@ namespace ShoppingStore
             InitializeComponent();
         }
 
-        private void btnLoginUser_Click(object sender, RoutedEventArgs e)
+        private void BtnLoginUser_Click(object sender, RoutedEventArgs e)
         {
-
+            Window showAdminSrc = new AdminWindow();
+            showAdminSrc.Show();
+            this.Close();
         }
 
-        private void btnCreateUser_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateUser_Click(object sender, RoutedEventArgs e)
         {
 
         }
