@@ -27,7 +27,7 @@ namespace ShoppingStore
     {
         private User user = null;
         private DateTime date = new DateTime();
-        int isAdministrator = 0;
+        private int isAdministrator = 0;
 
         public CustomerAdd()
         {
@@ -81,7 +81,8 @@ namespace ShoppingStore
 
                     srcUserlist = new UserList();
                     srcUserlist.Show();
-                    this.Close();
+                    Close();
+                    //this.Close();
                 }
                 catch (Exception ex)
                 {
