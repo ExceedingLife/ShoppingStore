@@ -43,12 +43,14 @@ namespace ShoppingStore.DataBase
                 while (reader != null && reader.Read())
                 {
                     //retrieve records from database table. ( .Parse && Convert. to change datatypes)
-                    User user = new User();
-                    user.UserID = Int32.Parse(reader["UserId"].ToString());
-                    user.Username = reader["Username"].ToString();
-                    user.Password = reader["Password"].ToString();
-                    user.IsAdmin = Boolean.Parse(reader["IsAdmin"].ToString());
-                    user.UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]);
+                    User user = new User
+                    {
+                        UserID = Int32.Parse(reader["UserId"].ToString()),
+                        Username = reader["Username"].ToString(),
+                        Password = reader["Password"].ToString(),
+                        IsAdmin = Boolean.Parse(reader["IsAdmin"].ToString()),
+                        UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"])
+                    };
                     users.Add(user);
                 }   //Close the SQLDataReader
                 reader.Close();
@@ -154,12 +156,14 @@ namespace ShoppingStore.DataBase
                 SqlDataReader reader = cmdRead.ExecuteReader(CommandBehavior.SingleRow);
                 if(reader.Read())
                 {
-                    User user = new User();
-                    user.UserID = Convert.ToInt32(reader["UserId"]);
-                    user.Username = reader["Username"].ToString();
-                    user.Password = reader["Password"].ToString();
-                    user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
-                    user.UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]);
+                    User user = new User()
+                    {                                           //SIMPLIFIED OBJECT INSTANTIATIONS
+                        UserID = Convert.ToInt32(reader["UserId"]),
+                        Username = reader["Username"].ToString(),
+                        Password = reader["Password"].ToString(),
+                        IsAdmin = Convert.ToBoolean(reader["IsAdmin"]),
+                        UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"])
+                    };
                     return user;
                 }
                 else
@@ -170,7 +174,8 @@ namespace ShoppingStore.DataBase
             catch(Exception ex)
             {
                 ex.Message.ToString();
-                return null;
+                throw ex;
+                //return null;
             }
             finally
             {

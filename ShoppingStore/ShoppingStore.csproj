@@ -72,6 +72,7 @@
       <DependentUpon>CustomerAdd.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataBase\ConnectionString.cs" />
+    <Compile Include="DataBase\SQLuserAccess.cs" />
     <Compile Include="DataBase\UsersDB.cs" />
     <Compile Include="LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
