@@ -125,5 +125,12 @@ namespace ShoppingStore
             userlistSRC.Show();            
             this.Close();
         }
+
+        private void BtnCancelCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Window SrcUserList = new UserList();
+            SrcUserList.Show();
+            Close();
+        }
     }
 }

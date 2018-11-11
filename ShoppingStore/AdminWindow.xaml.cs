@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SqlClient;
+using ShoppingStore.DataAccess;
+using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
@@ -20,10 +24,20 @@ namespace ShoppingStore
     /// </summary>
     public partial class AdminWindow : Window
     {
+        private User adminUser = null;
+
         public AdminWindow()
         {
             InitializeComponent();
         }
+        public AdminWindow(User user)
+        {
+            adminUser = user;
+            InitializeComponent();
+            //Display specific username on window.
+            TextBlockName.Text = "Hello:" + Environment.NewLine +user.Username;
+        }
+
 
         private void BtnUserList_Click(object sender, RoutedEventArgs e)
         {

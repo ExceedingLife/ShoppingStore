@@ -45,6 +45,14 @@ namespace ShoppingStore.DataAccess
             get => _userCreatedDate;            //get { return _userCreatedDate; }
             set => _userCreatedDate = value;    //set { _userCreatedDate = value; }
         }
+        //Created this property while figuring out inheritance - User : Customer
+        //create isCustomer property 11/8/18
+        private bool _isCustomer;
+        public bool IsCustomer
+        {
+            get => _isCustomer;
+            set => _isCustomer = value;
+        }
 
         //Default Constructor for User class
         public User() { }
@@ -66,12 +74,15 @@ namespace ShoppingStore.DataAccess
             IsAdmin = isadmin;
             UserCreatedDate = userDate;
         }
-        //Constructor for UPDATE and to keep orginal DateCreated ~~(UPDATE: DON'T THINK I NEED)~~11/2/18~
-        public User(string uname, string pass, bool isadmin)
+        //Constructor for CREATE CUSTOMER in ProfileScreen 11/8/18 ~
+        public User(int id, string uname, string pass, bool isadmin, DateTime userDate, bool iscustom)
         {
+            UserID = id;
             Username = uname;
             Password = pass;
             IsAdmin = isadmin;
+            UserCreatedDate = userDate;
+            IsCustomer = iscustom;
         }
 
         //Override the .ToString()

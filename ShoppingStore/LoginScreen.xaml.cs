@@ -60,13 +60,21 @@ namespace ShoppingStore
                     {
                         if (loginUser.IsAdmin == true)
                         {
-                            Window showAdminSrc = new AdminWindow();
+                            Window showAdminSrc = new AdminWindow(loginUser);
                             showAdminSrc.Show();
                             Close();
                         }
                         else if (loginUser.IsAdmin == false)
                         {
-                            Window nonAdmin = new UserList();
+                            //Customer CastUser = new Customer();
+                            //CastUser = loginUser as Customer;                            
+                            // Customer CastUser = loginUser as User;
+                            //User CastUser = loginUser;
+                           // Window nonAdmin = new CustomerScreen(CastUser);
+                            //((Customer)loginUser);
+
+                            Window nonAdmin = new CustomerScreen(loginUser);
+                            //Window nonAdmin = new CustomerScreen();
                             nonAdmin.Show();
                             Close();
                         }
