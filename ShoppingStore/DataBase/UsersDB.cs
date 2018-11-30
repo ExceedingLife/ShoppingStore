@@ -32,10 +32,8 @@ namespace ShoppingStore.DataBase
             string SQLselectAll = "SELECT * FROM Users";
             //Create SQLCommand to use SQL string.
             SqlCommand cmdSelectAll = new SqlCommand(SQLselectAll, connection);
-            //try catch finally block
             try
             {
-                //Open conection
                 connection.Open();
                 //Use SQLDataReader to use cmd and read data from table.
                 //DataReader = fast and lightweight / DataAdapter = holds record heavier but more options
@@ -55,23 +53,16 @@ namespace ShoppingStore.DataBase
                 }   //Close the SQLDataReader
                 reader.Close();
             }
-            catch (Exception e)
-            {
-                throw e;
-            }
-            finally
-            {
-                connection.Close();
-            }
+            catch (Exception e) { throw e; }
+            finally { connection.Close(); }
             return users;
         }
         //CREATE        ~CRUD FOR USER~
         //Method to create a new user and add it to the database.
         public static int CreateNewUser(User newUser)
         {
-            //SQL Create Query
             string SQLinsertQuery = "INSERT INTO Users (Username, Password, IsAdmin, UserCreatedDate) " +
-                "VALUES(@username, @password, @isadmin, @usercreateddate)";
+                                    "VALUES(@username, @password, @isadmin, @usercreateddate)";
             //SQL command
             SqlCommand cmdCreate = new SqlCommand(SQLinsertQuery, connection);
             cmdCreate.Parameters.AddWithValue("@username", newUser.Username);
@@ -97,25 +88,22 @@ namespace ShoppingStore.DataBase
                 ex.Message.ToString();
                 return -1;
             }
-            finally
-            {
-                connection.Close();
-            }
+            finally { connection.Close(); }
         }
         //READ
-        //HERE IS SOMETHING I AM GOING TO TRY
         //-GET USER AND ALL DATA BY ID AND EXECUTE BY SINGLEROW
         public static User GetUserById(int userId)
         {
             string SQLreadQuery = "SELECT * " +   //Username, Password, IsAdmin, UserCreatedDate " +
-                                  "FROM Users WHERE UserId = @userid";    //or SELECT ea column or *
+                                  "FROM Users " +
+                                  "WHERE UserId = @userid";    //or SELECT ea column or *
             SqlCommand cmdRead = new SqlCommand(SQLreadQuery, connection);
             cmdRead.Parameters.AddWithValue("@userid", userId);
             try
             {
                 connection.Open();
                 SqlDataReader reader = cmdRead.ExecuteReader(CommandBehavior.SingleRow);
-                if(reader.Read())
+                if (reader.Read())
                 {
                     User user = new User()
                     {                                           //SIMPLIFIED OBJECT INSTANTIATIONS
@@ -128,32 +116,24 @@ namespace ShoppingStore.DataBase
                     };
                     return user;
                 }
-                else
-                {
-                    return null;
-                }
+                else { return null; }
             }
             catch(Exception ex)
             {
                 ex.Message.ToString();
                 throw ex;
-                //return null;
             }
-            finally
-            {
-                connection.Close();
-            }
+            finally { connection.Close(); }
         }
         //UPDATE
         //Method to update current selected user and store it in database.
         public static bool UpdateCurrentUser(User user)
         {
             bool result = false;
-            //SQL Update Query Text.
-            string SQLupdateQuery = "UPDATE Users SET Username = @username, Password = @password, " +
-                 "IsAdmin = @isadmin, UserCreatedDate = @usercreateddate, IsCustomer = @iscustomer " +
-                 "WHERE UserId = @userid";
-            //SQL Command
+            string SQLupdateQuery = "UPDATE Users " +
+                                    "SET Username = @username, Password = @password, IsAdmin = @isadmin, " +
+                                    "UserCreatedDate = @usercreateddate, IsCustomer = @iscustomer " +
+                                    "WHERE UserId = @userid";
             SqlCommand cmdUpdate = new SqlCommand(SQLupdateQuery, connection);
             cmdUpdate.Parameters.AddWithValue("@userid", user.UserID);
             cmdUpdate.Parameters.AddWithValue("@username", user.Username);
@@ -172,10 +152,7 @@ namespace ShoppingStore.DataBase
                 ex.Message.ToString();
                 throw ex;
             }
-            finally
-            {
-                connection.Close();
-            }
+            finally { connection.Close(); }
             return result;
         }      
         //DELETE
@@ -183,8 +160,10 @@ namespace ShoppingStore.DataBase
         public static bool DeleteSelectedUser(User user)
         {
             bool result = false;
-            string SQLdeleteQuery = "DELETE FROM Users WHERE UserId=@userid AND Username=@username " +
-                "AND Password=@password AND IsAdmin=@isadmin AND UserCreatedDate=@usercreateddate";
+            string SQLdeleteQuery = "DELETE FROM Users " +
+                                    "WHERE UserId=@userid AND Username=@username " +
+                                    "AND Password=@password AND IsAdmin=@isadmin " +
+                                    "AND UserCreatedDate=@usercreateddate";
             SqlCommand cmdDelete = new SqlCommand(SQLdeleteQuery, connection);
             cmdDelete.Parameters.AddWithValue("@userid", user.UserID);
             cmdDelete.Parameters.AddWithValue("@username", user.Username);
@@ -206,10 +185,7 @@ namespace ShoppingStore.DataBase
                 result = false;
                 throw ex;
             }
-            finally
-            {
-                connection.Close();
-            }
+            finally { connection.Close(); }
             return result;
         }
 
@@ -257,10 +233,6 @@ namespace ShoppingStore.DataBase
                     Customer customer = new Customer()
                     {
                         UserId = Convert.ToInt32(reader["UserId"]),
-                        /*Username = reader["Username"].ToString(),
-                        Password = reader["Password"].ToString(),
-                        IsAdmin = Convert.ToBoolean(reader["IsAdmin"]),
-                        UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]),*/
                         FirstName = reader["FirstName"].ToString(),
                         LastName = reader["LastName"].ToString(),
                         Address = reader["Address"].ToString(),
@@ -281,18 +253,19 @@ namespace ShoppingStore.DataBase
         public static bool UpdateCustomer(Customer customer)
         {
             bool result = false;
-            string SQLupdateQuery = "UPDATE Customers SET FirstName=@fn, LastName=@ln, " +
-                "Address=@ad, City=@ci, State=@st, ZipCode=@zc, EmailAddress=@ea " +
-                "WHERE UserId=@cid";
+            string SQLupdateQuery = "UPDATE Customers " +
+                                    "SET FirstName=@fn, LastName=@ln, Address=@ad, " +
+                                    "City=@ci, State=@st, ZipCode=@zc, EmailAddress=@ea " +
+                                    "WHERE UserId=@cid";
             SqlCommand cmdUpdate = new SqlCommand(SQLupdateQuery, connection);
             cmdUpdate.Parameters.AddWithValue("@cid", customer.UserId);
-            cmdUpdate.Parameters.AddWithValue("@fn", customer.FirstName);
-            cmdUpdate.Parameters.AddWithValue("@ln", customer.LastName);
-            cmdUpdate.Parameters.AddWithValue("@ad", customer.Address);
-            cmdUpdate.Parameters.AddWithValue("@ci", customer.City);
-            cmdUpdate.Parameters.AddWithValue("@st", customer.State);
-            cmdUpdate.Parameters.AddWithValue("@zc", customer.ZipCode);
-            cmdUpdate.Parameters.AddWithValue("@ea", customer.EmailAddress);
+            cmdUpdate.Parameters.AddWithValue("@fn", customer.FirstName ?? Convert.DBNull);
+            cmdUpdate.Parameters.AddWithValue("@ln", customer.LastName ?? Convert.DBNull);
+            cmdUpdate.Parameters.AddWithValue("@ad", customer.Address ?? Convert.DBNull);
+            cmdUpdate.Parameters.AddWithValue("@ci", customer.City ?? Convert.DBNull);
+            cmdUpdate.Parameters.AddWithValue("@st", customer.State ?? Convert.DBNull);
+            cmdUpdate.Parameters.AddWithValue("@zc", customer.ZipCode ?? Convert.DBNull);
+            cmdUpdate.Parameters.AddWithValue("@ea", customer.EmailAddress ?? Convert.DBNull);
             try
             {
                 connection.Open();

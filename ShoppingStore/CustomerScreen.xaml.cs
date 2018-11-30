@@ -34,12 +34,15 @@ namespace ShoppingStore
         {
             insertedUser = user;
 
-            //customerUser = (Customer)user;
+            string capitalLaterName = "";
+            capitalLaterName = user.Username.Substring(1);
+            string firstLetter = user.Username.Substring(0,1).ToUpper();
             customerUser = user as Customer;
             InitializeComponent();
             //Display Users 'username' on Src / *future - Data Binding.
-            TxtBlockName.Text = "Hello:" + Environment.NewLine + 
-                user.Username;
+            TxtBlockName.Text = "Hello:" + Environment.NewLine +
+                firstLetter + capitalLaterName;
+                //user.Username;
                 //customerUser.Username;
         }
 
