@@ -32,26 +32,34 @@ namespace ShoppingStore
         }
         public CustomerScreen(User user)
         {
-            insertedUser = user;
-
-            string capitalLaterName = "";
-            capitalLaterName = user.Username.Substring(1);
-            string firstLetter = user.Username.Substring(0,1).ToUpper();
-            customerUser = user as Customer;
+            insertedUser = user;           
             InitializeComponent();
-            //Display Users 'username' on Src / *future - Data Binding.
-            TxtBlockName.Text = "Hello:" + Environment.NewLine +
-                firstLetter + capitalLaterName;
-                //user.Username;
-                //customerUser.Username;
+
+            if (insertedUser.IsCustomer == true)
+            {
+                customerUser = UsersDB.ReadCustomerById(user.UserID);
+                if (customerUser != null)
+                {
+                    //Display Hello: Customers firstname - *future - Data Binding.
+                    TxtBlockName.Text = "Hello:" + Environment.NewLine +
+                    CapitalizeFirstLetter(customerUser.FirstName);
+                }
+            }
+            else //Otherwise display Hello: Users username - *future - Data Binding.
+                TxtBlockName.Text = "Hello:" + Environment.NewLine + 
+                    CapitalizeFirstLetter(insertedUser.Username);
+        }
+
+        private string CapitalizeFirstLetter(string nameToCapitalize)
+        {
+            string nameMinusOne = nameToCapitalize.Substring(1);
+            string firstLetter = nameToCapitalize.Substring(0, 1).ToUpper();
+            return firstLetter + nameMinusOne;
         }
 
         private void BtnProfile_Click(object sender, RoutedEventArgs e)
         {
-            //Window SrcCustomerProfile = new ProfileScreen((Customer)insertedUser);
             Window SrcCustomerProfile = new ProfileScreen(insertedUser);
-
-            //Window SrcCustomerProfile = new ProfileScreen(customerUser);
             SrcCustomerProfile.Show();
             Close();
         }

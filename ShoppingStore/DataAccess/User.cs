@@ -88,8 +88,8 @@ namespace ShoppingStore.DataAccess
         //Override the .ToString()
         public override string ToString()
         {
-            return String.Format("ID: {4} - Username: {0} - Password: {1} - IsAdmin: {2} - UserCreatedDate: {3}",
-                Username, Password, IsAdmin, UserCreatedDate, UserID);
+            return String.Format("ID: {4} - Username: {0} - Password: {1} - IsAdmin: {2} - UserCreatedDate: {3} - Cust: {4}",
+                                  Username, Password, IsAdmin, UserCreatedDate, UserID, IsCustomer);
             //return base.ToString();
         }
 

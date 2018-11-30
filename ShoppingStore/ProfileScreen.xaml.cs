@@ -28,9 +28,8 @@ namespace ShoppingStore
         private bool boolIsCustomer = false;
 
         private User currentUser = null;
-        private Customer testcus = null;
-
-
+        private Customer currentCustomer = null;
+        
         // Field below MUST BE PROPERTY for data-binding.
         //public List<US_State> Get_States = StatesArray.Get_States;
         public List<US_State> Get_States => StatesArray.Get_States;
@@ -46,22 +45,17 @@ namespace ShoppingStore
         public ProfileScreen(User user)
         {
             currentUser = user;
-            InitializeComponent();
-
             DataContext = this;
+            InitializeComponent();            
             DisableControls();
 
             if (user.IsCustomer == true)
             {
-                Customer customerLoaded = UsersDB.ReadCustomerById(user.UserID);
-                PopulateControls(customerLoaded);
+                currentCustomer = UsersDB.ReadCustomerById(user.UserID);
+                PopulateControls(currentCustomer);
                 EnableControls();
-                CboCustomer.SelectedIndex = 1;
-                string loadedState = customerLoaded.State;
-                ComboboxState.SelectedValue = loadedState;
+                BtnCmenu.Visibility = Visibility.Visible;
             }            
-           // typeof(SomeType).IsAssignableFrom(typeof(Derived))
-           // typeof(Derived).IsSubclassOf(typeof(SomeType))
         }
 
 
@@ -71,9 +65,16 @@ namespace ShoppingStore
             TextboxLastName.Text = insertedCustomer.LastName.ToString();
             TextboxAddress.Text = insertedCustomer.Address.ToString();
             TextboxCity.Text = insertedCustomer.City.ToString();
-            //STATE combobox select
+            ComboboxState.SelectedValue = insertedCustomer.State;
             TextboxZip.Text = insertedCustomer.ZipCode.ToString();
             TextEmailAddress.Text = insertedCustomer.EmailAddress.ToString();
+            //Combobox Customer TRUE/FALSE - YES/NO selection
+            int selection = 1;
+            if(currentUser.IsCustomer == true)
+            {
+                selection = 2;
+            }
+            CboCustomer.SelectedIndex = selection;
         }
 
         private void DisableControls()
@@ -99,26 +100,13 @@ namespace ShoppingStore
 
         private void BtnProfileEdit_Click(object sender, RoutedEventArgs e)
         {
-            //User NewCustomer = null;
-            //NewCustomer = UsersDB.GetUserById(currentCustomer.UserID);
-            //Customer NewCustomer = null;
-            //NewCustomer =(Customer) UsersDB.GetUserById(currentCustomer.UserID);
-            //NewCustomer = (Customer)currentCustomer;
-            //(User) NewCustomer = currentCustomer;
-            //currentCustomer = (User)NewCustomer;
-            //currentCustomer = NewCustomer;
-            //Change button content to 'Save'.
-            Customer newCreatedCustomer = new Customer();
-
-
+            //Change button content to 'Save' on first btn click.
+            Customer newCreatedCustomer = new Customer();            
             EnableControls();
-            //MessageBox.Show(currentCustomer.GetType() + " VS " + NewCustomer.GetType());
 
             if (boolBtnPush == true)
             {
-                if (BtnProfileEdit.Content.Equals("Save"))
-                //if(BtnProfileEdit.Content.ToString() == "Save")
-                //error label.
+                if (BtnProfileEdit.Content.Equals("Save")) // || if(BtnProfileEdit.Content.ToString() == "Save")
                 {
                     if(boolIsCustomer == true)
                     {
@@ -135,9 +123,7 @@ namespace ShoppingStore
                                 var lastname = TextboxLastName.Text;
                                 var address = TextboxAddress.Text;
                                 var city = TextboxCity.Text;
-
                                 var cboState = ComboboxState.SelectedValue;
-
                                 var zipcode = TextboxZip.Text;
                                 var email = TextEmailAddress.Text;
 
@@ -146,18 +132,15 @@ namespace ShoppingStore
                                     newCreatedCustomer = new Customer(userId, firstname, lastname, address, city,
                                                                       cboState.ToString(), zipcode, email);
                                     UsersDB.UpdateCustomer(newCreatedCustomer);
-
                                     MessageBox.Show("Database updated.", currentUser.Username + " Profile Update",
                                                      MessageBoxButton.OK);
-
                                 }
                                 else
                                     MessageBox.Show("Select your state.", "SELECT STATE");
                                                                                                
-                                //Window SrcCustomerScreen = new CustomerScreen(currentUser);
-                                ////or use newcustomer to insert values.
-                                //SrcCustomerScreen.Show();
-                                //Close();
+                                Window SrcCustomerScreen = new CustomerScreen(currentUser);
+                                SrcCustomerScreen.Show();
+                                Close();
                             }
                             catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
                         }
@@ -176,10 +159,10 @@ namespace ShoppingStore
 
         private void Btntest_Click(object sender, RoutedEventArgs e)
         {
-            var stateI = ComboboxState.SelectedItem;
-            var stateV = ComboboxState.SelectedValue;
-            MessageBox.Show("I: " + stateI);
-            MessageBox.Show("V: " + stateV);
+            //var stateI = ComboboxState.SelectedItem;
+            //var stateV = ComboboxState.SelectedValue;
+            //MessageBox.Show("I: " + stateI);
+            //MessageBox.Show("V: " + stateV);
             MessageBox.Show(currentUser.ToString()+"\n ID " +currentUser.UserID);
         }
 
@@ -196,18 +179,15 @@ namespace ShoppingStore
                 User addCustomer = null;
                 Customer newCustomer = null;
 
-                MessageBoxResult result = MessageBox.Show("Updating database to customer status.",
-                    "Customer Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
-                if (result == MessageBoxResult.Yes)
-                {
+                //MessageBoxResult result = MessageBox.Show("Updating database to customer status.",
+                //    "Customer Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                //if (result == MessageBoxResult.Yes)
+                //{
                     if (currentUser.IsCustomer == true)
                     {
                         try
-                        {
-                            //bool boole = false;
-
-                            Customer custTestID = UsersDB.ReadCustomerById(currentUser.UserID); //?? custTestID == null;
-                                //? boole : custTestID = null;
+                        {                          
+                            Customer custTestID = UsersDB.ReadCustomerById(currentUser.UserID);
 
                             if(currentUser.UserID == custTestID.UserID)
                             {
@@ -227,11 +207,34 @@ namespace ShoppingStore
                         }
                         catch(Exception ex) { MessageBox.Show(ex.Message.ToString()); }
                     }
+                    else
+                    {
+                        try
+                        {   //UPDATE User so 'IsCustomer' property is set to True.
+                            addCustomer = new User(currentUser.UserID, currentUser.Username, currentUser.Password,
+                                                   currentUser.IsAdmin, currentUser.UserCreatedDate, boolIsCustomer);
+                            UsersDB.UpdateCurrentUser(addCustomer);
+                            //CREATE Customer from current User linking together by 'UserId'
+                            newCustomer = new Customer(currentUser.UserID, currentUser.Username, TextboxLastName.Text,
+                                                       TextboxAddress.Text, TextboxCity.Text, null, TextboxZip.Text,
+                                                       TextEmailAddress.Text);
+                            UsersDB.CreateCustomer(newCustomer);
+                        }
+                        catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+                    }
                     // return;
                     //PopulateControls(customerLoaded);
-                }
+                //}
                 //else // boolIsCustomer = false;
             }
+        }
+
+        private void BtnCmenu_Click(object sender, RoutedEventArgs e)
+        {
+            //Button to go back to main menu
+            Window SrcCustomerMenu = new CustomerScreen(currentUser);
+            SrcCustomerMenu.Show();
+            Close();
         }
     }
 

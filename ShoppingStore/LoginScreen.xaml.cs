@@ -52,9 +52,7 @@ namespace ShoppingStore
                 try
                 {
                     loginUser = SQLuserAccess.UserLogin(txtUsername.Text, txtPassword.Password.ToString());
-                    //if(!string.IsNullOrEmpty(SQLuserAccess.UserLoginString(txtUsername.Text, txtPassword.Password)))      --Boolean Login.
-                         //string Id = SQLuserAccess.UserLoginString(txtUsername.Text, txtPassword.Password);
-                         //loginUser = UsersDB.GetUserById(Id);
+                    
 
                     if (txtUsername.Text == loginUser.Username && txtPassword.Password == loginUser.Password)
                     {
@@ -66,15 +64,7 @@ namespace ShoppingStore
                         }
                         else if (loginUser.IsAdmin == false)
                         {
-                            //Customer CastUser = new Customer();
-                            //CastUser = loginUser as Customer;                            
-                            // Customer CastUser = loginUser as User;
-                            //User CastUser = loginUser;
-                           // Window nonAdmin = new CustomerScreen(CastUser);
-                            //((Customer)loginUser);
-
-                            Window nonAdmin = new CustomerScreen(loginUser);
-                            //Window nonAdmin = new CustomerScreen();
+                            Window nonAdmin = new CustomerScreen(loginUser);                            
                             nonAdmin.Show();
                             Close();
                         }
@@ -86,14 +76,14 @@ namespace ShoppingStore
                         lblInvalidText.Visibility = Visibility.Visible;
                     }
                 }
-                catch(Exception ex)
-                {
-                    ex.Message.ToString();
-                    throw ex;
-                }
+                catch(Exception ex) { lblInvalidText.Visibility = Visibility.Visible; /*MessageBox.Show(ex.Message.ToString());*/ }
             }
         }
-
+        /*
+            //if(!string.IsNullOrEmpty(SQLuserAccess.UserLoginString(txtUsername.Text, txtPassword.Password))) --Boolean Login.
+            //string Id = SQLuserAccess.UserLoginString(txtUsername.Text, txtPassword.Password);
+            //loginUser = UsersDB.GetUserById(Id);
+        */
         private void BtnCreateUser_Click(object sender, RoutedEventArgs e)
         {
             Window showCustAdd = new CustomerAdd();
