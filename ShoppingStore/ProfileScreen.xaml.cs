@@ -172,8 +172,7 @@ namespace ShoppingStore
             if (CboCustomer.SelectedIndex > 0)
                 cboValue = ((ComboBoxItem)CboCustomer.SelectedItem).Content.ToString();
 
-            if(cboValue.Equals("Yes"))
-            //if (CboCustomer.SelectedItem..ToString().Equals("Yes"))
+            if(cboValue.Equals("Yes")) // || if (CboCustomer.SelectedItem.ToString().Equals("Yes"))
             {
                 boolIsCustomer = true;
                 User addCustomer = null;
@@ -183,49 +182,46 @@ namespace ShoppingStore
                 //    "Customer Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
                 //if (result == MessageBoxResult.Yes)
                 //{
-                    if (currentUser.IsCustomer == true)
-                    {
-                        try
-                        {                          
-                            Customer custTestID = UsersDB.ReadCustomerById(currentUser.UserID);
+                if (currentUser.IsCustomer == true)
+                {
+                    try
+                    {                          
+                        newCustomer = UsersDB.ReadCustomerById(currentUser.UserID);
+                        //Customer custTestID = UsersDB.ReadCustomerById(currentUser.UserID);
+                        //MessageBox.Show(newCustomer.ToString());
+                        if (currentUser.UserID == newCustomer.UserId)//custTestID.UserID)
+                        {
+                            return;
+                        }                        
+                        //else
+                        //{
+                        //    addCustomer = new User(currentUser.UserID, currentUser.Username,
+                        //    currentUser.Password, currentUser.IsAdmin, currentUser.UserCreatedDate, boolIsCustomer);
+                        //    UsersDB.UpdateCurrentUser(addCustomer);
 
-                            if(currentUser.UserID == custTestID.UserID)
-                            {
-                                return;
-                            }
-                            else
-                            {
-                                addCustomer = new User(currentUser.UserID, currentUser.Username,
-                                currentUser.Password, currentUser.IsAdmin, currentUser.UserCreatedDate, boolIsCustomer);
-                                UsersDB.UpdateCurrentUser(addCustomer);
-
-                                newCustomer = new Customer(currentUser.UserID, currentUser.Username, TextboxLastName.Text,
-                                                        TextboxAddress.Text, TextboxCity.Text, null, 
-                                                        TextboxZip.Text, TextEmailAddress.Text);
-                                UsersDB.CreateCustomer(newCustomer);
-                            }
-                        }
-                        catch(Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+                        //    newCustomer = new Customer(currentUser.UserID, currentUser.Username, TextboxLastName.Text,
+                        //                            TextboxAddress.Text, TextboxCity.Text, null, 
+                        //                            TextboxZip.Text, TextEmailAddress.Text);
+                        //    UsersDB.CreateCustomer(newCustomer);
+                        //}
                     }
-                    else
-                    {
-                        try
-                        {   //UPDATE User so 'IsCustomer' property is set to True.
-                            addCustomer = new User(currentUser.UserID, currentUser.Username, currentUser.Password,
-                                                   currentUser.IsAdmin, currentUser.UserCreatedDate, boolIsCustomer);
-                            UsersDB.UpdateCurrentUser(addCustomer);
-                            //CREATE Customer from current User linking together by 'UserId'
-                            newCustomer = new Customer(currentUser.UserID, currentUser.Username, TextboxLastName.Text,
-                                                       TextboxAddress.Text, TextboxCity.Text, null, TextboxZip.Text,
-                                                       TextEmailAddress.Text);
-                            UsersDB.CreateCustomer(newCustomer);
-                        }
-                        catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+                    catch(Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+                }
+                else
+                {
+                    try
+                    {   //UPDATE User so 'IsCustomer' property is set to True.
+                        addCustomer = new User(currentUser.UserID, currentUser.Username, currentUser.Password,
+                                                currentUser.IsAdmin, currentUser.UserCreatedDate, boolIsCustomer);
+                        UsersDB.UpdateCurrentUser(addCustomer);
+                        //CREATE Customer from current User linking together by 'UserId'
+                        newCustomer = new Customer(currentUser.UserID, currentUser.Username, TextboxLastName.Text,
+                                                    TextboxAddress.Text, TextboxCity.Text, null, TextboxZip.Text,
+                                                    TextEmailAddress.Text);
+                        UsersDB.CreateCustomer(newCustomer);
                     }
-                    // return;
-                    //PopulateControls(customerLoaded);
-                //}
-                //else // boolIsCustomer = false;
+                    catch (Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+                }
             }
         }
 
@@ -237,5 +233,4 @@ namespace ShoppingStore
             Close();
         }
     }
-
 }

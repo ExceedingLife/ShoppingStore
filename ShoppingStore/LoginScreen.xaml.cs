@@ -52,31 +52,39 @@ namespace ShoppingStore
                 try
                 {
                     loginUser = SQLuserAccess.UserLogin(txtUsername.Text, txtPassword.Password.ToString());
-                    
 
-                    if (txtUsername.Text == loginUser.Username && txtPassword.Password == loginUser.Password)
+                    if (loginUser != null)
                     {
-                        if (loginUser.IsAdmin == true)
+                        if (txtUsername.Text == loginUser.Username && txtPassword.Password == loginUser.Password)
                         {
-                            Window showAdminSrc = new AdminWindow(loginUser);
-                            showAdminSrc.Show();
-                            Close();
-                        }
-                        else if (loginUser.IsAdmin == false)
-                        {
-                            Window nonAdmin = new CustomerScreen(loginUser);                            
-                            nonAdmin.Show();
-                            Close();
+                            if (loginUser.IsAdmin == true)
+                            {
+                                Window showAdminSrc = new AdminWindow(loginUser);
+                                showAdminSrc.Show();
+                                Close();
+                            }
+                            else if (loginUser.IsAdmin == false)
+                            {
+                                Window nonAdmin = new CustomerScreen(loginUser);
+                                nonAdmin.Show();
+                                Close();
+                            }
+                            else
+                                lblInvalidText.Content = "Admin is not True or False!";
                         }
                         else
-                            lblInvalidText.Content = "Admin is not True or False!";
+                        {
+                            lblInvalidText.Visibility = Visibility.Visible;
+                        }
                     }
                     else
-                    {
                         lblInvalidText.Visibility = Visibility.Visible;
-                    }
                 }
-                catch(Exception ex) { lblInvalidText.Visibility = Visibility.Visible; /*MessageBox.Show(ex.Message.ToString());*/ }
+                catch(Exception ex)
+                {
+                    //lblInvalidText.Visibility = Visibility.Visible;
+                    MessageBox.Show(ex.Message.ToString());
+                }
             }
         }
         /*

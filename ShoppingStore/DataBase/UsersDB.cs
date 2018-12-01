@@ -61,14 +61,15 @@ namespace ShoppingStore.DataBase
         //Method to create a new user and add it to the database.
         public static int CreateNewUser(User newUser)
         {
-            string SQLinsertQuery = "INSERT INTO Users (Username, Password, IsAdmin, UserCreatedDate) " +
-                                    "VALUES(@username, @password, @isadmin, @usercreateddate)";
+            string SQLinsertQuery = "INSERT INTO Users (Username, Password, IsAdmin, UserCreatedDate, IsCustomer) " +
+                                    "VALUES(@username, @password, @isadmin, @usercreateddate, @iscustomer)";
             //SQL command
             SqlCommand cmdCreate = new SqlCommand(SQLinsertQuery, connection);
             cmdCreate.Parameters.AddWithValue("@username", newUser.Username);
             cmdCreate.Parameters.AddWithValue("@password", newUser.Password);
             cmdCreate.Parameters.AddWithValue("@isadmin", newUser.IsAdmin);
             cmdCreate.Parameters.AddWithValue("@usercreateddate", newUser.UserCreatedDate);
+            cmdCreate.Parameters.AddWithValue("@iscustomer", newUser.IsCustomer);
             try
             {
                 connection.Open();

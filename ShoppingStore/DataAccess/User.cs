@@ -58,12 +58,13 @@ namespace ShoppingStore.DataAccess
         public User() { }
 
         //Constructor without UserId (USED FOR CREATING NEW USER)
-        public User(string uname, string pass, bool isadmin, DateTime userDate)
+        public User(string uname, string pass, bool isadmin, DateTime userDate, bool iscust)
         {
             Username = uname;
             Password = pass;
             IsAdmin = isadmin;
             UserCreatedDate = userDate;
+            IsCustomer = iscust;
         }
         //Constructor with UserId (USED FOR UPDATING CURRENTLY SELECTED USER)
         public User(int id, string uname, string pass, bool isadmin, DateTime userDate)

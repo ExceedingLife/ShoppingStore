@@ -74,7 +74,7 @@ namespace ShoppingStore
                 {
                     date = user.UserCreatedDate;
                     user = new User(Convert.ToInt32(txtUserID.Text), txtUsername.Text, txtPassword.Text, 
-                                    Convert.ToBoolean(isAdministrator), date);
+                                    Convert.ToBoolean(isAdministrator), date, false);
                     //Update selected user
                     //UsersDB.UpdateSelectedUserVoid(user);
                     UsersDB.UpdateCurrentUser(user);
@@ -82,7 +82,6 @@ namespace ShoppingStore
                     srcUserlist = new UserList();
                     srcUserlist.Show();
                     Close();
-                    //this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -94,7 +93,7 @@ namespace ShoppingStore
                 try
                 {
                     date = DateTime.Now;
-                    user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date);
+                    user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date, false);
                     //Create new user
                     UsersDB.CreateNewUser(user);
 
@@ -106,7 +105,6 @@ namespace ShoppingStore
                 {
                     MessageBox.Show(ex.Message.ToString());
                 }
-
             }
         }
 
