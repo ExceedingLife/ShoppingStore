@@ -157,15 +157,6 @@ namespace ShoppingStore
             BtnProfileEdit.Content = "Save";
         }
 
-        private void Btntest_Click(object sender, RoutedEventArgs e)
-        {
-            //var stateI = ComboboxState.SelectedItem;
-            //var stateV = ComboboxState.SelectedValue;
-            //MessageBox.Show("I: " + stateI);
-            //MessageBox.Show("V: " + stateV);
-            MessageBox.Show(currentUser.ToString()+"\n ID " +currentUser.UserID);
-        }
-
         private void CboCustomer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string cboValue = "";

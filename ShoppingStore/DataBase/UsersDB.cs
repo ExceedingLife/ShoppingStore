@@ -47,7 +47,8 @@ namespace ShoppingStore.DataBase
                         Username = reader["Username"].ToString(),
                         Password = reader["Password"].ToString(),
                         IsAdmin = Boolean.Parse(reader["IsAdmin"].ToString()),
-                        UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"])
+                        UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]),
+                        IsCustomer = Boolean.Parse(reader["IsCustomer"].ToString())
                     };
                     users.Add(user);
                 }   //Close the SQLDataReader

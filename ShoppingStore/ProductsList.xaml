@@ -26,9 +26,9 @@
             <ColumnDefinition Width="225"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.ColumnSpan="3" Content="Product List" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
-        <DataGrid x:Name="DataGridProducts" Grid.Row="1"  Grid.RowSpan="2" Grid.ColumnSpan="3" Height="300" Width="550" VerticalAlignment="Top">
+        <DataGrid x:Name="DataGridProducts" Grid.Row="1"  Grid.RowSpan="2" Grid.ColumnSpan="3" Height="300" Width="550" VerticalAlignment="Top" GridLinesVisibility="None" >
            <!-- <DataGrid.Columns>
-                
+                AutoGenerateColumns="False"
             </DataGrid.Columns>-->
         </DataGrid>
         <!-- Buttons Row 3 under grid (Add - Modify - Delete) -->

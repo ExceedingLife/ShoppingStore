@@ -58,5 +58,12 @@ namespace ShoppingStore
             //.ShowDialog does not let user click parent window
             //srcUsersAdd.Show();
         }
+
+        private void BtnProductList_Click(object sender, RoutedEventArgs e)
+        {
+            Window WindowProductList = new ProductsList();
+            WindowProductList.Show();
+            Close();
+        }
     }
 }

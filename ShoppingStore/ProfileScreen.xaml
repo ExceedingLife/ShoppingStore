@@ -80,7 +80,7 @@
                     </StackPanel>
                 </Button>
                 <Label x:Name="LblError" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF3F0A"/>
-                <Button x:Name="Btntest" Content="Button" HorizontalAlignment="Left" Margin="74.4,42.8,0,0" Grid.Row="4" VerticalAlignment="Top" Width="75" Grid.Column="1" Click="Btntest_Click"/>
+                
             </Grid>
         </Border>
         <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5"/>
