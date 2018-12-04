@@ -45,17 +45,26 @@ namespace ShoppingStore.DataAccess
             get => _userCreatedDate;            //get { return _userCreatedDate; }
             set => _userCreatedDate = value;    //set { _userCreatedDate = value; }
         }
+        //Created this property while figuring out inheritance - User : Customer
+        //create isCustomer property 11/8/18
+        private bool _isCustomer;
+        public bool IsCustomer
+        {
+            get => _isCustomer;
+            set => _isCustomer = value;
+        }
 
         //Default Constructor for User class
         public User() { }
 
         //Constructor without UserId (USED FOR CREATING NEW USER)
-        public User(string uname, string pass, bool isadmin, DateTime userDate)
+        public User(string uname, string pass, bool isadmin, DateTime userDate, bool iscust)
         {
             Username = uname;
             Password = pass;
             IsAdmin = isadmin;
             UserCreatedDate = userDate;
+            IsCustomer = iscust;
         }
         //Constructor with UserId (USED FOR UPDATING CURRENTLY SELECTED USER)
         public User(int id, string uname, string pass, bool isadmin, DateTime userDate)
@@ -66,19 +75,22 @@ namespace ShoppingStore.DataAccess
             IsAdmin = isadmin;
             UserCreatedDate = userDate;
         }
-        //Constructor for UPDATE and to keep orginal DateCreated ~~(UPDATE: DON'T THINK I NEED)~~11/2/18~
-        public User(string uname, string pass, bool isadmin)
+        //Constructor for CREATE CUSTOMER in ProfileScreen 11/8/18 ~
+        public User(int id, string uname, string pass, bool isadmin, DateTime userDate, bool iscustom)
         {
+            UserID = id;
             Username = uname;
             Password = pass;
             IsAdmin = isadmin;
+            UserCreatedDate = userDate;
+            IsCustomer = iscustom;
         }
 
         //Override the .ToString()
         public override string ToString()
         {
-            return String.Format("ID: {4} - Username: {0} - Password: {1} - IsAdmin: {2} - UserCreatedDate: {3}",
-                Username, Password, IsAdmin, UserCreatedDate, UserID);
+            return String.Format("ID: {4} - Username: {0} - Password: {1} - IsAdmin: {2} - UserCreatedDate: {3} - Cust: {4}",
+                                  Username, Password, IsAdmin, UserCreatedDate, UserID, IsCustomer);
             //return base.ToString();
         }
 

@@ -29,7 +29,10 @@ namespace ShoppingStore.DataBase
         public static User UserLogin(string username, string password)
         {
             //SQL Login Query.
-            string SQLloginQuery = "SELECT * FROM Users WHERE Username=@username AND Password=@password";
+            string SQLloginQuery = "SELECT * " +
+                                   "FROM Users " +
+                                   "WHERE Username=@username " +
+                                   "AND Password=@password";
             SqlCommand cmdLogin = new SqlCommand(SQLloginQuery, connection);
             cmdLogin.Parameters.AddWithValue("@username", username);
             cmdLogin.Parameters.AddWithValue("@password", password);
@@ -46,7 +49,8 @@ namespace ShoppingStore.DataBase
                         Username = reader["Username"].ToString(),
                         Password = reader["Password"].ToString(),
                         IsAdmin = Convert.ToBoolean(reader["IsAdmin"]),
-                        UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"])
+                        UserCreatedDate = Convert.ToDateTime(reader["UserCreatedDate"]),
+                        IsCustomer = Convert.ToBoolean(reader["IsCustomer"])
                     };
                     return user;
                 }
@@ -58,10 +62,7 @@ namespace ShoppingStore.DataBase
                 ex.Message.ToString();
                 throw ex;
             }
-            finally
-            {
-                connection.Close();
-            }
+            finally { connection.Close(); }
         }
 
 

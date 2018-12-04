@@ -11,7 +11,7 @@ namespace ShoppingStore.DataAccess
         //THIS CLASS WILL BE USED WITH TRYING AUTO-IMPLEMENTED PROPERTIES
 
         //create productID property
-        public int ProductID { get; set; }
+        public int ProductId { get; set; }
 
         //create productName property
         public string ProductName { get; set; }
@@ -35,46 +35,68 @@ namespace ShoppingStore.DataAccess
         public DateTime ProductPurchasedDate { get; set; }
 
         //create userID property
-        public int UserID { get; set; }
+        /*public int UserId { get; set; }
 
         //create receiptID property
-        public int ReceiptID { get; set; }
+        public int ReceiptId { get; set; }*/
+
+
 
 //       ~Constructors listed below ~
         //Default Product Constructor
         public Product() { }
 
-        //Product ALL Properties Constructor w/ID's. (USED FOR CREATING NEW PRODUCT)
-        public Product(int prodId, string pName, decimal pPrice, int pQuan, decimal pTax, 
-                       decimal pTotal, DateTime pListedDate, DateTime pPurchasedDate, 
-                       int userId, int receiptId)
+        //creating product constructor for SQL database
+        public Product(string pname, decimal pprice, decimal ptax, int pquantity, DateTime plisteddate)
         {
-            ProductID = prodId;
-            ProductName = pName;
-            ProductPrice = pPrice;
-            ProductQuantity = pQuan;
-            ProductTax = pTax;
-            ProductTotal = pTotal;
-            ProductListedDate = pListedDate;
-            ProductPurchasedDate = pPurchasedDate;
-            UserID = userId;
-            ReceiptID = receiptId;
+            ProductName = pname;
+            ProductPrice = pprice;
+            ProductTax = ptax;
+            ProductQuantity = pquantity;
+            ProductListedDate = plisteddate;
         }
-        //Product ALL Properties Constructor w/o ProdID.
-        public Product(string pName, decimal pPrice, int pQuan, decimal pTax,
-                       decimal pTotal, DateTime pListedDate, DateTime pPurchasedDate, 
-                       int userId, int receiptId)
+        //updating product constructor for SQL database
+        public Product(int pid, string pname, decimal pprice, decimal ptax, int pquantity, DateTime plisteddate)
         {
-            ProductName = pName;
-            ProductPrice = pPrice;
-            ProductQuantity = pQuan;
-            ProductTax = pTax;
-            ProductTotal = pTotal;
-            ProductListedDate = pListedDate;
-            ProductPurchasedDate = pPurchasedDate;
-            UserID = userId;
-            ReceiptID = receiptId;
+            ProductId = pid;
+            ProductName = pname;
+            ProductPrice = pprice;
+            ProductTax = ptax;
+            ProductQuantity = pquantity;
+            ProductListedDate = plisteddate;
         }
+        //constructor all fields w/Id
+        public Product(int prodId, string pname, decimal pprice, decimal ptax, DateTime plisteddate, 
+                       int pquan, decimal ptot, DateTime ppdate)
+        {
+            ProductId = prodId;
+            ProductName = pname;
+            ProductPrice = pprice;
+            ProductTax = ptax;
+            ProductListedDate = plisteddate;
+            ProductQuantity = pquan;
+            ProductTotal = ptot;
+            ProductPurchasedDate = ppdate;
+        }
+        //constructor all fields without Id
+        public Product(string pname, decimal pprice, decimal ptax, DateTime plisteddate,
+                       int pquan, decimal ptot, DateTime ppdate)
+        {
+            ProductName = pname;
+            ProductPrice = pprice;
+            ProductTax = ptax;
+            ProductListedDate = plisteddate;
+            ProductQuantity = pquan;
+            ProductTotal = ptot;
+            ProductPurchasedDate = ppdate;
+        }
+
         //methods
+        public override string ToString()
+        {
+            return string.Format("id:{0} - name:{1} - $:{2} - date:{3}", 
+                                 ProductId, ProductName, ProductPrice, ProductListedDate);
+            //return base.ToString();
+        }
     }
 }

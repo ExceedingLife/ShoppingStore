@@ -1,0 +1,49 @@
+﻿<Window x:Class="ShoppingStore.ProductAdd"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShoppingStore"
+        mc:Ignorable="d"
+        Title="Product Window" Height="525" Width="675" Background="#FF686868">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="LblHead" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Content="New Product" VerticalAlignment="Center" FontSize="30" HorizontalAlignment="Center" FontWeight="Bold"/>
+        <!-- Content for row 1-->
+        <Label x:Name="LblProductId" Grid.Column="1" Grid.Row="1" Content="Product ID: " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+        <TextBox x:Name="TxtProductId" Grid.Column="2" Grid.Row="1" ToolTip="Product ID" Width="175" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" Focusable="False"/>
+        <!-- Content for row 2-->
+        <Label Grid.Column="1" Grid.Row="2" Content="Product Name: " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+        <TextBox x:Name="TxtProductName" Grid.Column="2" Grid.Row="2" ToolTip="Product Name" Width="175" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!-- Content for row 3-->
+        <Label Grid.Column="1" Grid.Row="3" Content="Product Price: " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+        <TextBox x:Name="TxtProductPrice" Grid.Column="2" Grid.Row="3" ToolTip="Product Price" Width="175" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!-- Content for row 4-->
+        <Label Grid.Column="1" Grid.Row="4" Content="Product Tax: " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+        <TextBox x:Name="TxtProductTax" Grid.Column="2" Grid.Row="4" ToolTip="Product Tax" Width="175" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!-- Content for row 5-->
+        <Label Grid.Column="1" Grid.Row="5" Content="Product Quantity: " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+        <TextBox x:Name="TxtProductQuantity" Grid.Column="2" Grid.Row="5" ToolTip="Product Quantity" Width="175" Height="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!-- Button Create / Cancel for row 6 -->
+        <Button x:Name="BtnCreateProduct" Grid.Column="1" Grid.Row="6" Content="Create Product" Height="30" Width="120" ToolTip="Click to send data" Click="BtnCreateProduct_Click"/>
+        <Button x:Name="BtnCancelProduct" Grid.Column="2" Grid.Row="6" Content="Cancel" Height="30" Width="120" ToolTip="Click to cancel" Click="BtnCancelProduct_Click"/>
+        <!-- Footer for row  7 -->
+        <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.ColumnSpan="4" Grid.Row="7" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+    </Grid>
+</Window>

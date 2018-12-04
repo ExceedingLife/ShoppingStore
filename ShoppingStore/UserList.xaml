@@ -23,6 +23,7 @@
                     <GridViewColumn Header="Username" Width="120px" DisplayMemberBinding="{Binding Username}"/>
                     <GridViewColumn Header="Password" Width="120px" DisplayMemberBinding="{Binding Password}"/>
                     <GridViewColumn Header="Admin" Width="50px" DisplayMemberBinding="{Binding IsAdmin}"/>
+                    <GridViewColumn Header="Cust" Width="40px" DisplayMemberBinding="{Binding IsCustomer}"/>
                     <GridViewColumn Header="Date Created" DisplayMemberBinding="{Binding UserCreatedDate}"/>
                 </GridView>
             </ListView.View>

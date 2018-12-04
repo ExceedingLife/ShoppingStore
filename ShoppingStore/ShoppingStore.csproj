@@ -71,11 +71,26 @@
     <Compile Include="CustomerAdd.xaml.cs">
       <DependentUpon>CustomerAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomerScreen.xaml.cs">
+      <DependentUpon>CustomerScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Customer.cs" />
+    <Compile Include="DataAccess\US_State.cs" />
     <Compile Include="DataBase\ConnectionString.cs" />
+    <Compile Include="DataBase\ProductDB.cs" />
     <Compile Include="DataBase\SQLuserAccess.cs" />
     <Compile Include="DataBase\UsersDB.cs" />
     <Compile Include="LoginScreen.xaml.cs">
       <DependentUpon>LoginScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductAdd.xaml.cs">
+      <DependentUpon>ProductAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProductsList.xaml.cs">
+      <DependentUpon>ProductsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ProfileScreen.xaml.cs">
+      <DependentUpon>ProfileScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="StoreDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -86,6 +101,10 @@
       <DependentUpon>UserList.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomerAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomerScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -108,6 +127,18 @@
       <DependentUpon>AdminWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ProductAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProductsList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProfileScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
