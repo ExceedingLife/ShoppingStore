@@ -46,8 +46,7 @@ namespace ShoppingStore.DataBase
                             }
                         }                        
                     }
-                }
-                    
+                }                    
             }
             return listProducts;
         }

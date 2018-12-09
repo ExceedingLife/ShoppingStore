@@ -63,10 +63,6 @@
                 <Button x:Name="BtnCancelCreate" Grid.Row="4" Grid.Column="1" Content="Cancel" Width="120" Height="35" Background="#FFF65124" Click="BtnCancelCreate_Click"/>
             </Grid>
         </Border>
-        <Button x:Name="BtnAdminScreen" Grid.Row="5" Grid.Column="1" Content="Admin Screen" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to Admin src" Click="BtnAdminScreen_Click" />
-        <Button x:Name="BtnCustomerList" Grid.Row="5" Grid.Column="2" Content="Customer List" Width="100px" Height="25px" Background="#FF5E4848" ToolTip="Go back to CustomerList src" Click="BtnCustomerList_Click" />
-     <!--
-         <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.Row="5" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
-     -->
+        <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.Row="5" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
     </Grid>
 </Window>

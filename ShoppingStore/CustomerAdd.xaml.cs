@@ -32,6 +32,8 @@ namespace ShoppingStore
         public CustomerAdd()
         {
             InitializeComponent();
+            lblContent0.Visibility = Visibility.Hidden;
+            txtUserID.Visibility = Visibility.Hidden;
         }
 
         //Populate CustomerAdd window with User data.
@@ -106,22 +108,6 @@ namespace ShoppingStore
                     MessageBox.Show(ex.Message.ToString());
                 }
             }
-        }
-
-        private void BtnAdminScreen_Click(object sender, RoutedEventArgs e)
-        {
-            //Go back to Administrator Screen
-            Window adminSRC = new AdminWindow();
-            adminSRC.Show();
-            this.Close();
-        }
-
-        private void BtnCustomerList_Click(object sender, RoutedEventArgs e)
-        {
-            //Go back to Userlist Screen
-            Window userlistSRC = new UserList();
-            userlistSRC.Show();            
-            this.Close();
         }
 
         private void BtnCancelCreate_Click(object sender, RoutedEventArgs e)
