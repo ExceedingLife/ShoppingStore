@@ -98,7 +98,7 @@ namespace ShoppingStore
                     receipt.ProductNames.Add(name);
                     receipt.ProductQuantity.Add(quantity);
                     receipt.SalesTax.Add(tax);
-                    receipt.ProductsSubtotal.Add(sub);
+                    receipt.ProductsSubtotal.Add(subtotal);
                     receipt.ProductsTotal.Add(price);
                     receipt.ReceiptTotal = productTotal;
                 }
@@ -150,15 +150,18 @@ namespace ShoppingStore
                     try
                     {
                         date = DateTime.Now;
+                        receiptCart.ReceiptDate = date;
                         decimal total = receiptCart.ReceiptTotal;
                         int userid = customer.UserId;
+                        receiptCart.UserId = userid;
                         int receiptid = Extras.CreateReceipt(userid, total, date);
+                        receiptCart.ReceiptID = receiptid;
                         foreach(Product p in listOfP)
                         {
                             Extras.CreateProductInOrder(receiptid, userid, p.ProductName, p.ProductPrice, p.ProductQuantity, p.ProductTax);
                         }
 
-                        Window WindowReceipt = new ReceiptWindow();
+                        Window WindowReceipt = new ReceiptWindow(customer, receiptCart);
                         WindowReceipt.Show();
                         Close();
                     }
