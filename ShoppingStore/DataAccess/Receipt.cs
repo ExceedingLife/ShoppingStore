@@ -29,6 +29,9 @@ namespace ShoppingStore.DataAccess
             get => _receiptDate;
             set => _receiptDate = value;
         }
+
+        // All of my List<T> could be combined into 1 List<Product>.
+
         //List of all products bought
         private List<string> _productNames;
         public List<string> ProductNames
