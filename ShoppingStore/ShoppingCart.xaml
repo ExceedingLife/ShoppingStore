@@ -1,0 +1,51 @@
+﻿<Window x:Class="ShoppingStore.ShoppingCart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShoppingStore"
+        mc:Ignorable="d"
+       Title="Shopping Cart" Height="525" Width="800" Background="#FF686868">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Image x:Name="ImageCart" Source="pics/cart.png" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
+
+        <ListView x:Name="ListViewCart" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" SelectionChanged="ListViewProducts_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="185" DisplayMemberBinding="{Binding ProductName}"/>
+                    <GridViewColumn Header="Price" Width="120" DisplayMemberBinding="{Binding ProductPrice, StringFormat={}{0:C}}"/>
+                    <GridViewColumn Header="Quantity" Width="90" DisplayMemberBinding="{Binding ProductQuantity}"/>
+                    <GridViewColumn Header="Tax %" Width="50" DisplayMemberBinding="{Binding ProductTax}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <!-- Shopping Cart Controls-->
+        <Label Grid.Column="3" Grid.Row="4" Content="Shopping Cart" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold"/>
+        <Label x:Name="LblHelloName" Grid.Column="3" Grid.Row="4" Content="Username/Name" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18"/>
+        <!-- Buttons for cart -->
+        <Button x:Name="BtnConfirmCart" Grid.Column="3" Grid.Row="5" Content="Confirm Cart" Width="100" Height="35" VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="Click to CONFIRM Cart" Click="BtnConfirmCart_Click" />
+        <Button x:Name="BtnDeleteFromCart" Grid.Column="3" Grid.Row="5" Content="Delete Product" Width="100" Height="35" VerticalAlignment="Center" HorizontalAlignment="Left" ToolTip="Delete Selected Product" Margin="5,0,0,0" Click="BtnDeleteFromCart_Click"/>
+        <Button x:Name="BtnGoBack" Grid.Column="2" Grid.Row="5" Content="&lt;" Width="15" Height="35" VerticalAlignment="Center" HorizontalAlignment="Right" ToolTip="Click To Go Back Button" Margin="0,0,5,0" Visibility="Hidden" Click="BtnGoBack_Click"/>
+        <!-- Product Total Controls -->
+        <Label x:Name="LblProductTotalLabel" Content="Product Total : " Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="18"/>
+        <Label x:Name="LblProductTotalPrice" Content="$0.00" Grid.Row="5" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" ToolTip="Your total $ Price $"/>
+        <!-- Footer -->
+        <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.Row="6" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
+        </Grid>
+</Window>

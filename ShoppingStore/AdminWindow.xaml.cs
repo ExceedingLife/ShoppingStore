@@ -65,5 +65,12 @@ namespace ShoppingStore
             WindowProductList.Show();
             Close();
         }
+
+        private void BtnProductEdit_Click(object sender, RoutedEventArgs e)
+        {
+            Window WindowProductAdd = new ProductAdd();
+            WindowProductAdd.Show();
+            Close();
+        }
     }
 }

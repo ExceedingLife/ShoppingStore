@@ -144,6 +144,7 @@ namespace ShoppingStore
             dataTable.Columns.Add("Product Name");
             dataTable.Columns.Add("Product Price");
             dataTable.Columns.Add("Quantity");
+            dataTable.Columns.Add("Tax");
             dataTable.Columns.Add("Product Listed Date");
 
             foreach(var p in prodList)
@@ -153,6 +154,7 @@ namespace ShoppingStore
                 row["Product Name"] = p.ProductName;
                 row["Product Price"] = string.Format("{0:C}", p.ProductPrice);
                 row["Quantity"] = p.ProductQuantity;
+                row["Tax"] = string.Format("{0:#.00#}", p.ProductTax);
                 row["Product Listed Date"] = p.ProductListedDate;
                 dataTable.Rows.Add(row);
             }

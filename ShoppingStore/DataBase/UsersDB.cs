@@ -96,9 +96,9 @@ namespace ShoppingStore.DataBase
         //-GET USER AND ALL DATA BY ID AND EXECUTE BY SINGLEROW
         public static User GetUserById(int userId)
         {
-            string SQLreadQuery = "SELECT * " +   //Username, Password, IsAdmin, UserCreatedDate " +
+            string SQLreadQuery = "SELECT * " +
                                   "FROM Users " +
-                                  "WHERE UserId = @userid";    //or SELECT ea column or *
+                                  "WHERE UserId = @userid";
             SqlCommand cmdRead = new SqlCommand(SQLreadQuery, connection);
             cmdRead.Parameters.AddWithValue("@userid", userId);
             try

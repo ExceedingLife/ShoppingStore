@@ -71,8 +71,7 @@ namespace ShoppingStore
         {
             try
             {
-                selectedUser = UsersDB.GetUserById(userid);
-                
+                selectedUser = UsersDB.GetUserById(userid);                
                 //selectedUser = UsersDB.ReadUserById(userid);
             }
             catch(Exception ex)

@@ -25,6 +25,7 @@ namespace ShoppingStore
     {
         private Customer customerUser = null;
         private User insertedUser = null;
+        private Customer fullCustomer = null;
 
         public CustomerScreen()
         {
@@ -42,20 +43,25 @@ namespace ShoppingStore
                 {
                     //Display Hello: Customers firstname - *future - Data Binding.
                     TxtBlockName.Text = "Hello:" + Environment.NewLine +
-                    CapitalizeFirstLetter(customerUser.FirstName);
+                    //CapitalizeFirstLetter(customerUser.FirstName);
+                    Extras.CapitalizeFirstLetter(customerUser.FirstName);
+                    try
+                    {
+                        fullCustomer = new Customer(insertedUser.UserID, insertedUser.Username, insertedUser.Password,
+                                                    insertedUser.IsAdmin, insertedUser.UserCreatedDate, insertedUser.IsCustomer,
+                                                    customerUser.FirstName, customerUser.LastName, customerUser.Address,
+                                                    customerUser.City, customerUser.State, customerUser.ZipCode, customerUser.EmailAddress);
+                    }
+                    catch (Exception ex) { MessageBox.Show("Error making customer object"); }
                 }
             }
             else //Otherwise display Hello: Users username - *future - Data Binding.
-                TxtBlockName.Text = "Hello:" + Environment.NewLine + 
-                    CapitalizeFirstLetter(insertedUser.Username);
+                TxtBlockName.Text = "Hello:" + Environment.NewLine +
+                    //CapitalizeFirstLetter(insertedUser.Username);
+                    Extras.CapitalizeFirstLetter(insertedUser.Username);
         }
 
-        private string CapitalizeFirstLetter(string nameToCapitalize)
-        {
-            string nameMinusOne = nameToCapitalize.Substring(1);
-            string firstLetter = nameToCapitalize.Substring(0, 1).ToUpper();
-            return firstLetter + nameMinusOne;
-        }
+
 
         private void BtnProfile_Click(object sender, RoutedEventArgs e)
         {
@@ -66,7 +72,25 @@ namespace ShoppingStore
 
         private void BtnProducts_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(insertedUser.ToString());
+            if (insertedUser != null)
+            {
+                if (insertedUser.IsCustomer == true)
+                {
+                    if (fullCustomer != null)
+                    {
+                        Window WindowProductCart = new ProductCart(fullCustomer);//(insertedUser);
+                        WindowProductCart.Show();
+                        Close();
+                    }
+                    else
+                        MessageBox.Show("Error loading customer please re-login", "Plz Restart program");
+                }
+                else
+                    MessageBox.Show("You MUST be a customer to buy products, \nMake a profile.", "Warning");
+            }
+            else
+                MessageBox.Show("Customer Login Error", "Must Re-Login", MessageBoxButton.OK, MessageBoxImage.Error);
+            //MessageBox.Show(insertedUser.ToString());
         }
     }
 }
