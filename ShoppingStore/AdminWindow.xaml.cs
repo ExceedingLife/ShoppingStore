@@ -72,5 +72,10 @@ namespace ShoppingStore
             WindowProductAdd.Show();
             Close();
         }
+
+        private void BtnReceiptList_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

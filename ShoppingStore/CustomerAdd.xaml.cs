@@ -63,6 +63,7 @@ namespace ShoppingStore
         {
             //Open the UserList window after Creating/Updating a user.
             Window srcUserlist = null;
+            bool result = false;
 
             if (rbtnYes.IsChecked == true)
             {
@@ -72,40 +73,68 @@ namespace ShoppingStore
             //Check weather this is a NEW user or to UPDATE user.
             if (BtnCreateCustomer.Content.ToString() == "Update Customer")
             {   
-                try
+                if (!string.IsNullOrEmpty(txtUsername.Text))
                 {
-                    date = user.UserCreatedDate;
-                    user = new User(Convert.ToInt32(txtUserID.Text), txtUsername.Text, txtPassword.Text, 
-                                    Convert.ToBoolean(isAdministrator), date, false);
-                    //Update selected user
-                    //UsersDB.UpdateSelectedUserVoid(user);
-                    UsersDB.UpdateCurrentUser(user);
-
-                    srcUserlist = new UserList();
-                    srcUserlist.Show();
-                    Close();
+                    result = true;
                 }
-                catch (Exception ex)
+                else
+                    MessageBox.Show("Username cannot be empty", "Invalid username");
+                if (!string.IsNullOrEmpty(txtPassword.Text))
                 {
-                    MessageBox.Show(ex.Message.ToString());
-                }                   
+                    result = true;
+                }
+                else
+                    MessageBox.Show("Password cannot be empty", "Invalid Password");
+
+                if (result)
+                {
+                    try
+                    {
+                        date = user.UserCreatedDate;
+                        user = new User(Convert.ToInt32(txtUserID.Text), txtUsername.Text, txtPassword.Text, 
+                                        Convert.ToBoolean(isAdministrator), date, false);
+                        //Update selected user
+                        UsersDB.UpdateCurrentUser(user);
+
+                        srcUserlist = new UserList();
+                        srcUserlist.Show();
+                        Close();
+                    }
+                catch(Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+                }                  
             }
             else
             {
-                try
+                if (!string.IsNullOrEmpty(txtUsername.Text))
                 {
-                    date = DateTime.Now;
-                    user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date, false);
-                    //Create new user
-                    UsersDB.CreateNewUser(user);
-
-                    srcUserlist = new UserList();
-                    srcUserlist.Show();
-                    this.Close();
+                    result = true;
                 }
-                catch (Exception ex)
+                else
+                    MessageBox.Show("Username cannot be empty", "Invalid username");
+                if (!string.IsNullOrEmpty(txtPassword.Text))
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    result = true;
+                }
+                else
+                    MessageBox.Show("Password cannot be empty", "Invalid Password");
+
+                if (result)
+                {
+                    try
+                    {
+                        date = DateTime.Now;
+                        user = new User(txtUsername.Text, txtPassword.Text, Convert.ToBoolean(isAdministrator), date, false);
+                        //Create new user
+                        UsersDB.CreateNewUser(user);
+
+                        srcUserlist = new UserList();
+                        srcUserlist.Show();
+                        this.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
                 }
             }
         }

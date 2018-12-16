@@ -23,7 +23,7 @@
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <Image x:Name="ImageCart" Source="pics/cart.png" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
+        <Image x:Name="ImageCart" Source="/Pictures/cart.png" Grid.Column="3" Grid.Row="1" Grid.RowSpan="3"/>
 
         <ListView x:Name="ListViewCart" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" SelectionChanged="ListViewProducts_SelectionChanged">
             <ListView.View>

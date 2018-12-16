@@ -36,6 +36,10 @@
                 <Label x:Name="lblInvalidText" Content="INVALID:   'Username' or 'Password' please try again." FontSize="12" HorizontalAlignment="Center" FontWeight="Bold" Visibility="Hidden"/>
             </StackPanel>
         </Border>
+
+        <MediaElement x:Name="LoadSpinner" Source="Pictures/spinblue.gif" Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
+        Height="150" ToolTip="Loading..." LoadedBehavior="Play" UnloadedBehavior="Manual" MediaEnded="LoadSpinner_MediaEnded" Visibility="Hidden"/>
+        
         <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.Row="4" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>
     </Grid>
 </Window>
