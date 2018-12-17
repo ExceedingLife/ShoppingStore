@@ -21,8 +21,8 @@ namespace ShoppingStore
 {
     public partial class LoginScreen : Window
     {
-        string username = "";//txtUsername.Text;
-        string password = "";// txtPassword.Password;
+        string username = "";
+        string password = "";
         private User loginUser = new User();
         BackgroundWorker backgroundWorker = null;
 

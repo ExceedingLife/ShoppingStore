@@ -29,9 +29,39 @@ namespace ShoppingStore.DataAccess
             using(SqlConnection connection = ConnectionString.GetSqlConnection())
             {
                 connection.Open();
-                using(SqlCommand cmdList = new SqlCommand("Select * FROM Receipts", connection))
+                using(SqlCommand cmdList = new SqlCommand("Select * FROM Orders", connection))
                 {
                     using(SqlDataReader reader = cmdList.ExecuteReader())
+                    {
+                        if(reader != null)
+                        {
+                            while (reader.Read())
+                            {
+                                Receipt receipt = new Receipt
+                                {
+                                    ReceiptID = Convert.ToInt32(reader["ReceiptId"].ToString()),
+                                    UserId = Convert.ToInt32(reader["UserId"].ToString()),
+                                    ReceiptDate = Convert.ToDateTime(reader["ReceiptDate"].ToString()),
+                                    ReceiptTotal = Convert.ToDecimal(reader["ReceiptTotal"].ToString())
+                                };
+                                receipts.Add(receipt);
+                            }
+                        }
+                    }
+                }
+            }
+            return receipts;
+        }
+        public static List<Receipt> GetReceiptsById(int uid)
+        {
+            List<Receipt> receipts = new List<Receipt>();
+            using(SqlConnection connection = ConnectionString.GetSqlConnection())
+            {
+                connection.Open();
+                using(SqlCommand cmd = new SqlCommand("SELECT * FROM Orders WHERE UserId = @userid", connection))
+                {
+                    cmd.Parameters.AddWithValue("@userid", uid);
+                    using(SqlDataReader reader = cmd.ExecuteReader())
                     {
                         if(reader != null)
                         {

@@ -16,9 +16,6 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for ReceiptWindow.xaml
-    /// </summary>
     public partial class ReceiptWindow : Window
     {
         private Customer customer = null;
@@ -35,6 +32,23 @@ namespace ShoppingStore
             customer = c;
             receipt = r;
             GetUser(customer);
+            if (!r.ProductNames.Any())
+            {
+                AddProductsToReceipt(receipt);
+            }
+            PopulateCustomerDetailsReceipt(customer);
+            PopulateReceiptDetails(receipt);
+            PopulateProductsData(receipt);
+            CreatePopulateTotals(receipt);
+        }
+        public ReceiptWindow(User u, Receipt r)
+        {
+            InitializeComponent();
+            user = u;
+            receipt = r;
+            //Get Customer data from UserId and List of Product data.
+            GetCutomerFromUserId(receipt.UserId);
+            AddProductsToReceipt(receipt);
             PopulateCustomerDetailsReceipt(customer);
             PopulateReceiptDetails(receipt);
             PopulateProductsData(receipt);
@@ -57,6 +71,43 @@ namespace ShoppingStore
                     MessageBox.Show("Error retrieving UserId", "Invalid Id");
             }
         }
+        private void GetCutomerFromUserId(int uid)
+        {
+            if(uid != 0)
+            {
+                try
+                {
+                    customer = UsersDB.ReadCustomerById(uid);
+                }
+                catch(Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+            }
+        }
+        private void AddProductsToReceipt(Receipt r)
+        {
+            List<ReturnReceiptProductList> productList = new List<ReturnReceiptProductList>();
+            try
+            {
+                //retrieve orderlist table to populate products in receipt.
+                productList = Extras.GetReceiptProductList(r.ReceiptID);
+                if(productList != null)
+                {
+                    foreach(ReturnReceiptProductList p in productList)
+                    {
+                        r.ProductNames.Add(p.Product.ProductName);
+                        r.ProductsTotal.Add(p.Product.ProductPrice);
+                        r.ProductQuantity.Add(p.Product.ProductQuantity);
+                        r.SalesTax.Add(p.Product.ProductTax);
+                        //calculate subtotal to be used on receipt
+                        decimal subtotal = p.Product.ProductPrice * p.Product.ProductQuantity;
+                        r.ProductsSubtotal.Add(subtotal);
+                    }
+                }
+                
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message.ToString()); }
+        }
+
+
         private void PopulateCustomerDetailsReceipt(Customer customer)
         {
             string fullname = "";
@@ -68,7 +119,6 @@ namespace ShoppingStore
             fulladdress = customer.Address;
             fullcitystate = customer.City + " " + customer.State + " " + customer.ZipCode;
             emailaddress = customer.EmailAddress;
-
             TxtCustomerDetails.Text = fullname + "\n" + fulladdress + "\n" + fullcitystate + "\n" + emailaddress;
         }
         private void PopulateReceiptDetails(Receipt receipt)
@@ -76,14 +126,16 @@ namespace ShoppingStore
             string date = "";
             string receiptid = "";
             string userid = "";
-            string numberofproducts = "";
+            int numberofproducts = 0;
 
             date = "Date: " + receipt.ReceiptDate.ToString();
             receiptid = "ReceiptID: " + receipt.ReceiptID.ToString("00000");
             userid = "UserID: " + receipt.UserId.ToString();
-            numberofproducts = "Number of products: " + receipt.ProductNames.Count.ToString();
-
-            TxtReceiptData.Text = date + "\n" + receiptid + "\n" + userid + "\n" + numberofproducts;
+            foreach(int p in receipt.ProductQuantity)
+            {
+                numberofproducts += p;
+            }
+            TxtReceiptData.Text = date + "\n" + receiptid + "\n" + userid + "\nNumber of products: " + numberofproducts;
         }
         private void PopulateProductsData(Receipt receipt)
         {
@@ -116,7 +168,6 @@ namespace ShoppingStore
             }
 
             tax = receipt.ReceiptTotal - subtotal;
-
             TxtProductNameData.Text += "\n\nSubtotal: " + subtotal.ToString("C2");
             TxtProductNameData.Text += "\nTax Added: " + tax.ToString("C2");
             TxtProductNameData.Text += "\nTotal: " + receipt.ReceiptTotal.ToString("C2");
@@ -124,10 +175,19 @@ namespace ShoppingStore
 
         private void BtnMenu_Click(object sender, RoutedEventArgs e)
         {
-            //user in customerscreen constructor
-            Window WindowCustomerMenu = new CustomerScreen(user);
-            WindowCustomerMenu.Show();
-            Close();
+            if(user.IsAdmin == true)
+            {
+                Window WindowAdminMenu = new AdminWindow(user);
+                WindowAdminMenu.Show();
+                Close();
+            }
+            else
+            {
+                //user in customerscreen constructor
+                Window WindowCustomerMenu = new CustomerScreen(user);
+                WindowCustomerMenu.Show();
+                Close();
+            }
         }
     }
 }

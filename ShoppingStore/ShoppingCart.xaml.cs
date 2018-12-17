@@ -16,23 +16,13 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for ShoppingCart.xaml
-    /// </summary>
     public partial class ShoppingCart : Window
     {
         private Customer customer = null;
         private Product selectedProduct = null;
-        //private List<string> listProductNames = new List<string>();               listProductNames = lpn;
-        //private List<decimal> listProductPrices = new List<decimal>();                listProductPrices = lpp;
-        //private List<decimal> listProductSalesTax = new List<decimal>();              listProductSalesTax = lpt;
-        //private List<int> listProductQuantity = new List<int>();              listProductQuantity = lpq;
-        //List<string> lpn, List<decimal> lpp, List<decimal> lpt, List<int> lpq, 
-
         private List<Product> listOfP = new List<Product>();
         //public List<Product> Cart => new List<Product>();
         public List<Product> Cart { get; } = new List<Product>();
-
         DateTime date = new DateTime();
         Receipt receiptCart = new Receipt();
         decimal productTotal = 0m;
@@ -57,10 +47,6 @@ namespace ShoppingStore
 
         private void CreateCart(List<Product> lcart)
         {
-            //selectedProduct = new Product(); foreach(string name in lpn){selectedProduct.ProductName = name;}
-            //foreach(decimal price in lpp)//{ //    selectedProduct.ProductPrice = price; //}
-            //foreach(decimal tax in lpt) //{/    selectedProduct.ProductTax = tax;  //}
-            //foreach(int quantity in lpq){selectedProduct.ProductQuantity = quantity;} Cart.Add(selectedProduct);
             foreach(Product product in listOfP)
             {
                 Cart.Add(product);

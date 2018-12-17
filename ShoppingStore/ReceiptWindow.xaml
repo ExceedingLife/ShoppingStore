@@ -55,7 +55,6 @@
                 <TextBlock x:Name="TxtProductPriceData" Grid.Column="1" Grid.Row="4"/>
                 <TextBlock x:Name="TxtProductQuantityData" Grid.Column="2" Grid.Row="4"/>
                 <TextBlock x:Name="TxtProductTotalData" Grid.Column="3" Grid.Row="4"/>
-
             </Grid>
         </Border>
         <!-- Footer -->

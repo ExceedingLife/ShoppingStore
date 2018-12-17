@@ -35,9 +35,16 @@
         
         <Border Margin="50,20,50,0" Padding="5" Grid.Column="1"  Grid.Row="1" Grid.RowSpan="4" BorderThickness="5" Grid.ColumnSpan="3" BorderBrush="#FFECD520" CornerRadius="10">
             <Grid>
-                <Button x:Name="BtnProfile" Content="Profile" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Height="40" Background="#FF736A6A" FontSize="18" BorderBrush="#FFF69494" Click="BtnProfile_Click"/>
-                <Button x:Name="BtnProducts" Content="Products" Margin="0,-100,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40" Background="#FF736A6A" FontSize="18" BorderBrush="#FFF69494" Click="BtnProducts_Click"/>
-
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="BtnProfile" Content="Profile" Grid.Row="0" Width="150" Height="40" Background="#FF736A6A" FontSize="18" BorderBrush="#FFF69494" Click="BtnProfile_Click"/>
+                <Button x:Name="BtnProducts" Content="Products" Grid.Row="1" Width="150" Height="40" Background="#FF736A6A" FontSize="18" BorderBrush="#FFF69494" Click="BtnProducts_Click"/>
+                <Button x:Name="BtnReceipts" Content="Receipts" Grid.Row="2" Width="150" Height="40" Background="#FF736A6A" FontSize="18" BorderBrush="#FFF69494" Click="BtnReceipts_Click"/>
+                <Button x:Name="BtnLogOut" Content="Log Out" Grid.Row="3" Width="150" Height="40" Background="#FF736A6A" FontSize="18" BorderBrush="#FFF69494" Click="BtnLogOut_Click"/>
             </Grid>
         </Border>
         <Label x:Name="lblFooter" Content="Copyright © BigBear Developent" Grid.Row="5" Grid.ColumnSpan="5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"/>

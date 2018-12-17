@@ -83,7 +83,14 @@ namespace ShoppingStore.DataAccess
             ProductsSubtotal = new List<decimal>();
             ProductsTotal = new List<decimal>();
         }
-
+        //Constructor for ReceiptList of Admin
+        public Receipt(int rid, int uid, decimal rtot, DateTime rdate)
+        {
+            ReceiptID = rid;
+            UserId = uid;
+            ReceiptTotal = rtot;
+            ReceiptDate = rdate;
+        }
         //Calculating total into receipt
         public Receipt(List<string> pNames, List<int> pQuan, List<decimal> tax,
                List<decimal> pSub, List<decimal> pPrices, decimal rtot)

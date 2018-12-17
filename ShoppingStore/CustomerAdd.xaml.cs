@@ -15,14 +15,9 @@ using System.Data;
 using System.Data.SqlClient;
 using ShoppingStore.DataAccess;
 using ShoppingStore.DataBase;
-//--------------------------------------------------
-using ShoppingStore.StoreDBDataSetTableAdapters;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for CustomerAdd.xaml
-    /// </summary>
     public partial class CustomerAdd : Window
     {
         private User user = null;

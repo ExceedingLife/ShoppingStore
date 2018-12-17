@@ -19,9 +19,6 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class AdminWindow : Window
     {
         private User adminUser = null;
@@ -37,8 +34,7 @@ namespace ShoppingStore
             //Display specific username on window.
             TextBlockName.Text = "Hello:" + Environment.NewLine +user.Username;
         }
-
-
+        
         private void BtnUserList_Click(object sender, RoutedEventArgs e)
         {
             //Button click to show the UsersList screen.
@@ -53,10 +49,8 @@ namespace ShoppingStore
             Window srcUsersAdd = new CustomerAdd();
             srcUsersAdd.Show();
             this.Close();
-
             //.Show() lets user click parent window
             //.ShowDialog does not let user click parent window
-            //srcUsersAdd.Show();
         }
 
         private void BtnProductList_Click(object sender, RoutedEventArgs e)
@@ -75,7 +69,14 @@ namespace ShoppingStore
 
         private void BtnReceiptList_Click(object sender, RoutedEventArgs e)
         {
+            Window WindowReceiptList = new ReceiptList(adminUser);
+            WindowReceiptList.Show();
+            Close();
+        }
 
+        private void BtnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

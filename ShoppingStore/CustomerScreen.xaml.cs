@@ -18,9 +18,6 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for CustomerScreen.xaml
-    /// </summary>
     public partial class CustomerScreen : Window
     {
         private Customer customerUser = null;
@@ -61,8 +58,6 @@ namespace ShoppingStore
                     Extras.CapitalizeFirstLetter(insertedUser.Username);
         }
 
-
-
         private void BtnProfile_Click(object sender, RoutedEventArgs e)
         {
             Window SrcCustomerProfile = new ProfileScreen(insertedUser);
@@ -90,7 +85,33 @@ namespace ShoppingStore
             }
             else
                 MessageBox.Show("Customer Login Error", "Must Re-Login", MessageBoxButton.OK, MessageBoxImage.Error);
-            //MessageBox.Show(insertedUser.ToString());
+        }
+
+        private void BtnReceipts_Click(object sender, RoutedEventArgs e)
+        {
+            if(insertedUser != null)
+            {
+                if(insertedUser.IsCustomer == true)
+                {
+                    if (fullCustomer != null)
+                    {
+                        Window WindowReceiptList = new ReceiptList(fullCustomer);
+                        WindowReceiptList.Show();
+                        Close();
+                    }
+                    else
+                        MessageBox.Show("Error loading customer please re-login", "Plz Restart program");
+                }
+                else
+                    MessageBox.Show("You MUST be a customer to view receipts, \nMake a profile.", "Warning");
+            }
+            else
+                MessageBox.Show("Customer Login Error", "Must Re-Login", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void BtnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
