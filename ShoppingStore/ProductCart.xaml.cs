@@ -16,21 +16,14 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for ProductCart.xaml
-    /// </summary>
     public partial class ProductCart : Window
     {
         //Property for Data-Binding products to listview.
-        public List<Product> ProductList => ProductDB.GetProductList(); //new List<Product>();
+        public List<Product> ProductList => ProductDB.GetProductList();
         private Product selectedProduct = null;
-        //private User user = null;
         private Customer customer = null;
         int selectedIndex = -1;
-        //private List<string> listProductNames = new List<string>();
-        //private List<decimal> listProductPrices = new List<decimal>();
-        //private List<decimal> listProductSalesTax = new List<decimal>();
-        //private List<int> listProductQuantity = new List<int>();
+        //private User user = null;
         private List<Product> listProductCart = new List<Product>();
 
         public ProductCart()
@@ -103,12 +96,6 @@ namespace ShoppingStore
 
                         if (moveOn)
                         {
-                            //Add selected ProductName, ProductPrice, & ProductSalesTax to Lists.
-                            //listProductNames.Add(selectedProduct.ProductName);
-                            //listProductPrices.Add(selectedProduct.ProductPrice);
-                            //listProductSalesTax.Add(selectedProduct.ProductTax);
-                            //listProductQuantity.Add(selectedProduct.ProductQuantity);
-                            //------------------------------
                             listProductCart.Add(selectedProduct);
                             //Clear textboxes of currently selected product.
                             TxtProductName.Text = "";
@@ -147,11 +134,6 @@ namespace ShoppingStore
         }
     }
 }
-
-
-
- 
- //listProductNames, listProductPrices, listProductSalesTax, listProductQuantity,
 
   
 

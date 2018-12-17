@@ -16,9 +16,6 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for ProductAdd.xaml
-    /// </summary>
     public partial class ProductAdd : Window
     {
         private Product loadedProduct = null;

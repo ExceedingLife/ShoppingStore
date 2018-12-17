@@ -19,21 +19,15 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for ProfileScreen.xaml
-    /// </summary>
     public partial class ProfileScreen : Window
     {
         private bool boolBtnPush = false;
         private bool boolIsCustomer = false;
-
         private User currentUser = null;
-        private Customer currentCustomer = null;
-        
+        private Customer currentCustomer = null;        
         // Field below MUST BE PROPERTY for data-binding.
         //public List<US_State> Get_States = StatesArray.Get_States;
         public List<US_State> Get_States => StatesArray.Get_States;
-
 
         public ProfileScreen()
         {

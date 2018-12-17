@@ -18,9 +18,6 @@ using ShoppingStore.DataBase;
 
 namespace ShoppingStore
 {
-    /// <summary>
-    /// Interaction logic for ProductsList.xaml
-    /// </summary>
     public partial class ProductsList : Window
     {
         private List<Product> productList = new List<Product>();
